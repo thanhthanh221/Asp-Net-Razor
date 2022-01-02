@@ -1,0 +1,59 @@
+@page
+@model Razor.Pages_CRUD.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    int i =0;
+}
+
+<h1>Thông tin Mới</h1>
+<form method="get" asp-page = "./Index">
+    <label for="">Tìm Kiếm</label>
+    <input name="STT_ID", value="">
+    <button type="submit.btn-secondary" >Tìm</button>
+</form>
+<p>
+    <a asp-page ="Create" class="btn btn-primary">Tạo Mới Dữ Liệu</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Blog[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Blog[0].Created)
+            </th>   
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+@foreach (var item in Model.Blog) {
+        <tr>
+            <td>
+                @(++i)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID" class="btn btn-danger">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID" class="btn btn-secondary">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID" class="btn btn-warning">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@{
+    var paging = new Razor.Helper.PagingModel();
+    paging.currentPage = Model.currentPage;
+    paging.countPages = Model.countPages;
+    paging.GetFunc = (int? p) =>@Url.Page("/CRUD/Index",new {p= p});
+}
+<partial name="_Paging", model ="@paging"/>
