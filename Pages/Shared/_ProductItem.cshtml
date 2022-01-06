@@ -1,0 +1,9 @@
+@using Razor.model
+@model Product
+<div class="card my-4" style="width: 20em;">
+    <h2 class="card-header text-info" >@Model.Name</h2>
+    <div class="card-body">
+        <p> Giá<strong> @Model.Price</strong></p>
+        <a asp-page ="/CRUD/Index" class="btn btn-secondary btn-sm">Đặt hàng</a>
+    </div>
+</div>

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Razor.model;
 
 namespace Razor.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20220106102706_Test1")]
+    partial class Test1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,7 +82,7 @@ namespace Razor.Migrations
                     b.Property<string>("HoTen")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
-                        .HasColumnName("Họ Tên");
+                        .HasColumnName("nvarchar");
 
                     b.HasKey("ID");
 
@@ -124,11 +126,16 @@ namespace Razor.Migrations
                     b.Property<DateTime>("NgaySinh")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("NhanVienMaNV")
+                        .HasColumnType("int");
+
                     b.Property<int>("SDT")
                         .HasColumnType("int")
                         .HasColumnName("Số Điện Thoại");
 
                     b.HasKey("MaNV");
+
+                    b.HasIndex("NhanVienMaNV");
 
                     b.ToTable("Nhân Viên");
                 });
@@ -185,6 +192,13 @@ namespace Razor.Migrations
                     b.Navigation("nhanVien");
                 });
 
+            modelBuilder.Entity("Razor.model.NhanVien", b =>
+                {
+                    b.HasOne("Razor.model.NhanVien", null)
+                        .WithMany("nhanViens")
+                        .HasForeignKey("NhanVienMaNV");
+                });
+
             modelBuilder.Entity("Razor.model.Product", b =>
                 {
                     b.HasOne("Razor.model.Kho", "kho")
@@ -209,6 +223,8 @@ namespace Razor.Migrations
             modelBuilder.Entity("Razor.model.NhanVien", b =>
                 {
                     b.Navigation("HoaDons");
+
+                    b.Navigation("nhanViens");
                 });
 #pragma warning restore 612, 618
         }
