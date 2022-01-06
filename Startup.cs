@@ -26,8 +26,8 @@ namespace Razor
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddDbContext<Context>( options =>{
-                string value = Configuration.GetConnectionString("BlogContext");
+            services.AddDbContext<Context>(options =>{
+                string value = Configuration.GetConnectionString("Context");
                 options.UseSqlServer(value);
             });
         }

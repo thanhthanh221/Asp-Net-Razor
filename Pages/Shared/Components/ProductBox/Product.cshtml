@@ -1,0 +1,16 @@
+@using Razor.model
+@model List<Product>
+<div class="row bg-primary">
+    @foreach (var item in Model){
+        <div class="col" >
+            <div class="card my-4" style="width: 20em;">
+                <h2 class="card-header">@item.Name</h2>
+                <div class="card-body">
+                    <p>Giá :<strong>@item.Price</strong></p>
+                    <a class="btn btn-danger btn-sm" asp-page ="./Index"> Đặt Hàng</a>
+                </div>
+            </div>
+        </div>
+        
+    }
+</div>
