@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Razor.model;
 
 namespace Razor.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20220109102447_value2")]
+    partial class value2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -123,11 +125,6 @@ namespace Razor.Migrations
                         .HasColumnName("Mã Nhân Viên")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Anh")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Ảnh");
-
                     b.Property<string>("CMND")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -138,8 +135,7 @@ namespace Razor.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("Họ Tên");
 
-                    b.Property<DateTime?>("NgaySinh")
-                        .IsRequired()
+                    b.Property<DateTime>("NgaySinh")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("SDT")

@@ -2,11 +2,39 @@
 @model IndexModel
 @using Razor.model;
 @{
-    ViewData["Title"] = "Home page";
-    var kq = ViewData["Post"] as List<Blog>;
+    var result = ViewData["Post"] as List<Product>;
 }
+<div>
+    <h2>Tìm Kiếm Sản phẩm</h2>
+    <form method="get" asp-page ="Index" class="m-2 p-3 alert alert-danger">
+        <div class="form-group">
+            <label asp-for = "@Model.product[0].Name"></label>
+            <input name="Search_Name", value="">
+            <button class="btn btn-danger " type="submit.btn-secondary"> Tìm Kiếm</button>
+        </div>
+    </form>
+    <div class="row">
+        @if(result != null ){
+            @if(result.Count!= 0 ){
+                foreach (var item in result)
+                {
+                    <div class="col" >
+                    <div class="card my-4" style="width: 20em;">
+                        <h2 class="card-header">@item.Name</h2>
+                        <div class="card-body">
+                            <p>Giá :<strong>@item.Price</strong></p>
+                            <a class="btn btn-danger btn-sm" asp-page ="ThongTinSanPham" asp-route-x = "@item.MaSanPham">Xem Sản Phẩm</a>
+                        </div>
+                    </div>
+                </div>
+                    
+                }
+            }
+        }
+        </div>
+</div>
 
 <div class="text-center">
-    <h1 class="display-4 text text-danger">Xử lý Web</h1>
+    <h1 class="alert">Các Sản Phẩm</h1>
 </div>
 @await Component.InvokeAsync("ProductBox")

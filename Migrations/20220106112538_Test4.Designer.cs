@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Razor.model;
 
 namespace Razor.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20220106112538_Test4")]
+    partial class Test4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,18 +80,9 @@ namespace Razor.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("HoTen")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
                         .HasColumnName("Họ Tên");
-
-                    b.Property<string>("SĐT")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
-                        .HasColumnName("Số Điện Thoại");
-
-                    b.Property<string>("email")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
@@ -123,14 +116,8 @@ namespace Razor.Migrations
                         .HasColumnName("Mã Nhân Viên")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Anh")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Ảnh");
-
-                    b.Property<string>("CMND")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CMND")
+                        .HasColumnType("int");
 
                     b.Property<string>("HoTen")
                         .IsRequired()
@@ -138,14 +125,11 @@ namespace Razor.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("Họ Tên");
 
-                    b.Property<DateTime?>("NgaySinh")
-                        .IsRequired()
+                    b.Property<DateTime>("NgaySinh")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("SDT")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
+                    b.Property<int>("SDT")
+                        .HasColumnType("int")
                         .HasColumnName("Số Điện Thoại");
 
                     b.HasKey("MaNV");
@@ -160,9 +144,6 @@ namespace Razor.Migrations
                         .HasColumnType("int")
                         .HasColumnName("Mã Sản Phẩm")
                         .UseIdentityColumn();
-
-                    b.Property<string>("Anh")
-                        .HasColumnType("ntext");
 
                     b.Property<int>("MaKho")
                         .HasColumnType("int")

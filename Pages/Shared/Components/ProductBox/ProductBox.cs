@@ -11,10 +11,15 @@ namespace Component{
         private readonly Razor.model.Context context;
         public ProductBox(Razor.model.Context context){
             this.context = context;
-        }         
-        public IViewComponentResult Invoke(){
+        }
+             
+        public IViewComponentResult Invoke(string Name){
             var kq = (from a in context.products orderby a.Price select a).ToList();
-            return View<List<Product>>("Product",kq);
+            if(!string.IsNullOrEmpty(Name)){
+                kq.Where(p => p.Name.Contains(Name));
+                
+            }       
+            return View<List<Product>>("ProductBox",kq);
         }      
     }
 }
