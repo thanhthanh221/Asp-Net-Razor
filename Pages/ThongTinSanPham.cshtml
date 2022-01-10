@@ -1,0 +1,18 @@
+@page "/SanPham/{x?}"
+@using Razor.model
+@model ThongTinSanPham
+@{
+    var temp = ViewData["Data"] as Product;
+}
+<h1 class="text text-danger">Thông tin sản phẩm </h1>
+<div>
+    <a> Mã Sản Phẩm : <trong>@temp.MaSanPham</trong></a>
+    <br>
+    <a>Số Lượng còn lại :<strong>@temp.SoLuong</strong></a>
+    <hr>
+    
+</div>
+<img src="@temp.Anh">
+<div>
+    <a  style="" class= " btn btn-danger">Thêm Vào giỏ</a>  
+</div>

@@ -19,6 +19,7 @@ namespace Razor.Pages
             _logger = logger;
             this.context = context;
         }
+        [BindProperty]
         public IList<Product> products{set;get;}
         public void OnGet()
         {

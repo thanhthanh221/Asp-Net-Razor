@@ -12,19 +12,25 @@ namespace Razor.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-        private readonly Context context;
+        private readonly Razor.model.Context context;
 
-        public IndexModel(ILogger<IndexModel> logger, Context context)
+        public IndexModel(ILogger<IndexModel> logger, Razor.model.Context context)
         {
             _logger = logger;
             this.context = context;
         }
+        [BindProperty(SupportsGet = true)]
+        public List<Product> product{set;get;}
 
-        public void OnGet()
+        public void OnGet(string Search_Name)
         {
-            var kq = (from blog in context.blogs orderby blog.Created descending select blog).ToList();
+            var kq = (from a in context.products select a).ToList();
+            if(!string.IsNullOrEmpty(Search_Name)){
+                ViewData["Post"]= kq.Where(p =>p.Name.Contains(Search_Name)).ToList();
 
-            ViewData["Post"] = kq;
+            }
+        }
+        public void OnPost(){
 
         }
     }

@@ -9,8 +9,9 @@ namespace Razor.model{
         [Column("Mã Kho")]
         public int MaKho{set;get;}
         [Required]
-        [Column("Tên Kho")]
-        public int TenKho{set;get;}
+        [Column("Tên Kho",TypeName ="nvarchar")]
+        [StringLength(255,ErrorMessage ="Tên Kho Không được quá dài")]
+        public string TenKho{set;get;}
         public virtual List<Product> Products{set;get;}
     }
 }
