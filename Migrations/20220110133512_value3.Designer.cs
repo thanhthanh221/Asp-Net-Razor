@@ -124,12 +124,6 @@ namespace Razor.Migrations
                         .HasColumnType("int")
                         .HasColumnName("Mã Nhân Viên")
                         .UseIdentityColumn();
-
-                    b.Property<string>("Anh")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Ảnh");
-
                     b.Property<string>("CMND")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

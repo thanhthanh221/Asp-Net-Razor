@@ -1,8 +1,10 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
 namespace Razor.model{
-    public class Context :DbContext{
+    public class Context :IdentityDbContext<AppUser>{
         public Context(DbContextOptions options) : base(options)
         {
         }
