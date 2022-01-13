@@ -28,6 +28,8 @@ namespace Razor.model{
         [Phone(ErrorMessage ="Phải là số điện thoại")]
         [StringLength(10,MinimumLength =10,ErrorMessage ="Số Điện thoại phải có 10 chữ số")]
         public string SDT{set;get;}
+        
+        public string Anh{set;get;}
         public List<HoaDon> HoaDons{set;get;}
 
         public override bool Equals(object obj)
