@@ -18,7 +18,6 @@ namespace Razor.Pages_CRUD
         {
             _context = context;
         }
-
         public IList<Blog> Blog { get;set; }
         public const int ITEM_PER_PAGE= 10;
 
@@ -26,7 +25,7 @@ namespace Razor.Pages_CRUD
         public int currentPage{set;get;}
         public int countPages{set;get;}
 
-        public void OnGet(int STT_ID){
+        public void OnGet([FromQuery]int STT_ID){
             int totalBlog = _context.blogs.Count();
 
             countPages = totalBlog/ITEM_PER_PAGE;

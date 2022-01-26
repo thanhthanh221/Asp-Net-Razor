@@ -30,7 +30,6 @@ namespace Razor.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
         }
-
         [BindProperty]
         public InputModel Input { get; set; }
 
@@ -44,14 +43,15 @@ namespace Razor.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [EmailAddress]
-            public string Email { get; set; }
+            [Display(Name ="Tên Đăng Nhập")]
+            public string UserName { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
+            [Display(Name ="Mật Khẩu")]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me?")]
+            [Display(Name = "Lưu")]
             public bool RememberMe { get; set; }
         }
 
@@ -72,7 +72,7 @@ namespace Razor.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null) // IActionResult trả về 1 trang URL nào đó
         {
             returnUrl ??= Url.Content("~/");
 
@@ -82,10 +82,21 @@ namespace Razor.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+                if(!result.Succeeded){
+                    var LoginUserName = await _userManager.FindByEmailAsync(Input.UserName);
+                    if(LoginUserName!= null){
+                        result = await _signInManager.PasswordSignInAsync(LoginUserName, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+                        if(result.Succeeded){
+                            _logger.LogInformation("User Đã Đăng Nhập");
+                            return RedirectToPage("./Index");
+                        }
+                    }
+
+                }
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User logged in.");
+                    _logger.LogInformation("User Đã Đăng Nhập");
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -94,12 +105,12 @@ namespace Razor.Areas.Identity.Pages.Account
                 }
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("User account locked out.");
+                    _logger.LogWarning("Bị Xích Tài Khoản");
                     return RedirectToPage("./Lockout");
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Bịp à ??");
                     return Page();
                 }
             }

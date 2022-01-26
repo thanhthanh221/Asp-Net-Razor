@@ -175,6 +175,10 @@ namespace Razor.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<string>("Luong")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Lương");
+
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -319,8 +323,9 @@ namespace Razor.Migrations
                         .HasColumnName("Mã Nhân Viên")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Anh")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("Anh")
+                        .HasColumnType("varbinary(max)")
+                        .HasColumnName("Ảnh");
 
                     b.Property<string>("CMND")
                         .IsRequired()
