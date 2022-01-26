@@ -33,11 +33,12 @@ namespace Razor.Areas.Identity.Pages.Account
             _logger.LogInformation("User logged out.");
             if (returnUrl != null)
             {
-                return LocalRedirect(returnUrl);
+                return RedirectToPage(returnUrl);
             }
             else
             {
-                return RedirectToPage();
+                var ReturnUrl = Url.Content("~/Index");
+                return RedirectToPage(ReturnUrl);
             }
         }
     }

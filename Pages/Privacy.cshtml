@@ -3,15 +3,16 @@
 @{
     ViewData["Title"] = "MUA BÁN SẢN PHẨM";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Thông tin các sản phẩm</p>
-<div class="row bg-info">
-    @foreach (var item in Model.products)
-    {
-        <div class="col">
-            <partial name="_ProductItem", model= "item"/>
-        </div>
-        
-    }
+<div class="bg bg-danger">
+    <p>Thông tin các sản phẩm</p>
+    <div class="row bg-danger">
+        @foreach (var item in Model.products)
+        {
+            <div class="col">
+                <partial name="_ProductItem", model= "item"/>
+            </div>
+            
+        }
+    </div>
 </div>

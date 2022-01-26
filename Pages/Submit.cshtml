@@ -1,4 +1,4 @@
-﻿@page "/LienHe"
+﻿@page 
 @model Razor.Pages.SubmitModel
 @{
     var kq = ViewData["value"];
@@ -35,10 +35,11 @@
     <hr>
     <div class="form-group">
         <div asp-validation-summary="All"></div>
-        <button style="right: 40%;" class="btn btn-outline-danger" type="submit">Thêm</button>
+        <button  class="btn btn-outline-danger" type="submit">Thêm</button>
     </div>
 </form>
 @if(ModelState.IsValid){
     <h2 class="alert alert-primary">@kq</h2>
-
+    
+    
 }

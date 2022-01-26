@@ -50,18 +50,26 @@ namespace Razor
                 options.Password.RequiredUniqueChars = 0; // Số ký tự riêng biệt
 
                 // Cấu hình Lockout - khóa user
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes (10); // Khóa 5 phút
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMilliseconds(1); // Khóa 5 phút
                 options.Lockout.MaxFailedAccessAttempts = 5; // Thất bại 5 lầ thì khóa
                 options.Lockout.AllowedForNewUsers = true;
 
                 // Cấu hình về User.
                 options.User.AllowedUserNameCharacters = // các ký tự đặt tên user
-                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+ạ ế";
                 options.User.RequireUniqueEmail = true;  // Email là duy nhất
 
                 // Cấu hình đăng nhập.
                 options.SignIn.RequireConfirmedEmail = false;            // Cấu hình xác thực địa chỉ email (email phải tồn tại)
                 options.SignIn.RequireConfirmedPhoneNumber = false;     // Xác thực số điện thoại
+                options.SignIn.RequireConfirmedAccount = false;
+
+
+            });
+            services.ConfigureApplicationCookie(options =>{
+                options.LoginPath="/Identity/Account/Login";
+                options.LogoutPath ="/Identity/Account/Logout";
+                options.AccessDeniedPath ="/Identity/Account/AccessDenied";
 
             });
         }
