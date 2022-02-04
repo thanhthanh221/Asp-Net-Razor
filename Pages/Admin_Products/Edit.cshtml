@@ -1,0 +1,60 @@
+@page
+@model Razor.Pages_Admin_Products.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Product.MaSanPham" />
+            <div class="form-group">
+                <label asp-for="Product.Name" class="control-label"></label>
+                <input asp-for="Product.Name" class="form-control" />
+                <span asp-validation-for="Product.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Price" class="control-label"></label>
+                <input asp-for="Product.Price" class="form-control" />
+                <span asp-validation-for="Product.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Anh1" class="control-label"></label>
+                <input asp-for="Product.Anh1" class="form-control" />
+                <span asp-validation-for="Product.Anh1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.SoLuong" class="control-label"></label>
+                <input asp-for="Product.SoLuong" class="form-control" />
+                <span asp-validation-for="Product.SoLuong" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.sold" class="control-label"></label>
+                <input asp-for="Product.sold" class="form-control" />
+                <span asp-validation-for="Product.sold" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.MaKho" class="control-label"></label>
+                <select asp-for="Product.MaKho" class="form-control" asp-items="ViewBag.MaKho"></select>
+                <span asp-validation-for="Product.MaKho" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -14,8 +14,6 @@ namespace Razor.Pages{
     public class Shop :PageModel{
         public readonly Razor.model.Context context;
         [BindProperty]
-        public NhanVien nhanVien{set;get;}
-        [BindProperty]
         [Display(Name ="Ảnh nhân viên")]
         [DataType(DataType.Upload)]
         public IFormFile FileUpLoads{set;get;}

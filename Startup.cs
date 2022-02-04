@@ -13,14 +13,19 @@ using Razor.model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Album.Mail;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Html;
+
 
 namespace Razor
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public string ContentRootPath { set; get;}
+        public Startup(IConfiguration configuration,IWebHostEnvironment env)
         {
             Configuration = configuration;
+            ContentRootPath = env.ContentRootPath;
         }
 
         public IConfiguration Configuration { get; }
@@ -90,6 +95,8 @@ namespace Razor
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseStatusCodePagesWithRedirects("/Error");
 
             app.UseRouting();
 

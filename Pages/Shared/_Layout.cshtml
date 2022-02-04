@@ -37,7 +37,7 @@
 					<div class="main-menu-wrap">
 						<!-- logo -->
 						<div class="site-logo">
-							<a href="index.html">
+							<a asp-page="/Index">
 								<img src="~/img/logo.png" alt="">
 							</a>
 						</div>
@@ -74,10 +74,10 @@
 								<li><a href="contact.html">Contact</a></li>
 								<li><a asp-page="/Shop" asp-area="">Shop</a>
 									<ul class="sub-menu">
-										<li><a href="shop.html">Shop</a></li>
+										<li><a asp-page ="/Index">Shop</a></li>
 										<li><a href="checkout.html">Check Out</a></li>
-										<li><a href="single-product.html">Single Product</a></li>
-										<li><a asp-page ="Cart">Cart</a></li>
+										<li><a asp-page ="/Admin_Products/Index">Amin Product</a></li>
+										<li><a asp-page ="/Cart">Cart</a></li>
 									</ul>
 								</li>							
 								<li>

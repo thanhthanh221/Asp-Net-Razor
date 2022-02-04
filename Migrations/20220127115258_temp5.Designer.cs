@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Razor.model;
 
 namespace Razor.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20220127115258_temp5")]
+    partial class temp5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -215,6 +217,29 @@ namespace Razor.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Razor.model.Blog", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Content")
+                        .HasColumnType("ntext");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("blogs");
+                });
+
             modelBuilder.Entity("Razor.model.HoaDon", b =>
                 {
                     b.Property<int>("MaHoaDon")
@@ -244,12 +269,6 @@ namespace Razor.Migrations
                         .HasColumnType("int")
                         .HasColumnName("Mã Kho")
                         .UseIdentityColumn();
-
-                    b.Property<string>("TenKho")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("Tên Kho");
 
                     b.HasKey("MaKho");
 
