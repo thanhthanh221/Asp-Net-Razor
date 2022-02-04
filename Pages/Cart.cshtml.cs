@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Razor.model;
 
 namespace Razor.Pages{
+    [Authorize]
     public class CartModel :PageModel{
         public CartModel(){
             

@@ -2,7 +2,7 @@
     Model:
       - currentPage:int - Trang hiện tại
       - countPages:int - tổng số trang
-      - generateUrl:delegate Func<int?, string> trả về URL tương ứng với trang p (1,2,3 ...)
+      - GetFunc:delegate Func<int?, string> trả về URL tương ứng với trang p (1,2,3 ...)
 *@
 
 @model Razor.Helper.PagingModel;
@@ -11,16 +11,18 @@
     int countPages   = Model.countPages;
     var GetFunc  = Model.GetFunc;
     
-    if (currentPage > countPages) 
+    if (currentPage > countPages){
       currentPage = countPages;
+    }
 
-    if (countPages <= 1) return;
-    
+    if (countPages <= 1){
+        return;
+    }
 
     int? preview = null;
     int? next = null;
 
-    if (currentPage > 1)
+    if (currentPage > 0)
         preview = currentPage - 1;
 
     if (currentPage < countPages)
@@ -72,52 +74,29 @@
 }
 
 @* PHÁT SINH HTML*@
-
-<ul class="pagination">
-    <!-- Previous page link -->
-    @if (preview != null)
-    {
-        <li class="page-item">
-            <a class="page-link" href="@GetFunc(preview)">Trang trước</a>
-        </li>
-    }
-    else
-    {
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Trang trước</a>
-        </li>
-    }
-      
-    <!-- Numbered page links -->
-    @foreach (var pageitem in pagesRanges)
-    {
-        if (pageitem != currentPage) {
-            <li class="page-item">
-                <a class="page-link" href="@GetFunc(pageitem)">
-                    @pageitem
-                </a>
-            </li>
-        }   
-        else 
-        {
-            <li class="page-item active" aria-current="page">
-                <a class="page-link" href="#">@pageitem <span class="sr-only">(current)</span></a>
-            </li>
-        }
-    }
-
-
-    <!-- Next page link -->
-    @if (next != null)
-    {
-        <li class="page-item">
-            <a class="page-link" href="@GetFunc(next)">Trang sau</a>
-        </li>
-    }
-    else 
-    {
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Trang sau</a>
-        </li>
-    }
-</ul>
+<div class="row">
+	<div class="col-lg-12 text-center">
+		<div class="pagination-wrap">
+			<ul>
+                @if (preview != null)
+                {
+                     <li><a href="@GetFunc(preview)">Pre</a></li>
+                }
+                @foreach (var pageitem in pagesRanges)
+                {
+                    if (pageitem == currentPage) {
+                        <li><a class="active" href= "@GetFunc(pageitem)">@pageitem</a></li>
+                    }   
+                    else 
+                    {
+                         <li><a href= "@GetFunc(pageitem)">@pageitem</a></li>
+                    }
+                }
+                    @if (next != null)
+                    {
+                        <li><a href="@GetFunc(next)">Next</a></li>
+                    }
+			</ul>
+		</div>
+	</div>
+</div>

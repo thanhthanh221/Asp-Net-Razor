@@ -11,8 +11,11 @@
                         <a id="manage" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"> Xin chào <strong>@UserManager.GetUserName(User)</strong></a>
                             <ul class="sub-menu">
                                 <li>
+                                    <a asp-page="/Admin_Products/Create">Creat Products</a>
+                                </li>
+                                <li>
                                     <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                                        <button type="submit" class="nav-link btn btn-link text-dark">Đăng Xuât</button>
+                                            <button type="submit" class="nav-link btn btn-link text-dark">Đăng Xuât</button>
                                     </form>
                                 </li>
                             </ul>

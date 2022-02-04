@@ -8,7 +8,6 @@ namespace Razor.model{
         public Context(DbContextOptions options) : base(options)
         {
         }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
@@ -17,21 +16,16 @@ namespace Razor.model{
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<HoaDon>(entity=>{
-                entity.HasOne(p =>p.nhanVien).WithMany(c =>c.HoaDons).HasForeignKey("MaNhanVienBan").OnDelete(DeleteBehavior.Cascade);
-                
-                entity.HasOne(p=>p.KhachHang).WithMany(c =>c.HoaDons).HasForeignKey("NguoiMua").OnDelete(DeleteBehavior.Cascade);
-
+                entity.HasOne(p=> p.shipper).WithMany(c=> c.hoaDon).HasForeignKey("ID_Shiper").OnDelete(DeleteBehavior.Cascade);
             });
             modelBuilder.Entity<Product>(entity =>{
                 entity.HasOne(p=>p.kho).WithMany(c =>c.Products).HasForeignKey("MaKho").OnDelete(DeleteBehavior.Cascade);
 
             });
         }
-        public DbSet<Blog> blogs{set;get;}
+        public DbSet<Shipper> shippers{set;get;}
         public DbSet<Product> products{set;get;}
-        public DbSet<NhanVien> NhanViens{set;get;}
         public DbSet<HoaDon> hoaDons{set;get;}
-        public DbSet<KhachHang> khachHangs{set;get;}
         public DbSet<Kho> khos{set;get;}
 
 
