@@ -12,6 +12,30 @@ namespace Razor.Pages
 {
     public class IndexModel : PageModel
     {
+        public string SetUpMoney(int value){
+            List<string> a = new List<string>();
+            string hash = string.Empty;
+            string s = value.ToString();
+            int temp = 0;
+            for (int i = s.Length-1; i >= 0; i--)
+            {
+                a.Add(s[i].ToString());
+                temp++;
+                if(temp== 3){
+                    temp= 0;
+                    a.Add(".");
+                }
+            }
+            if(!a[a.Count-1].Equals(".")){
+                hash+= a[a.Count-1];
+            }
+            for (int i = a.Count-2; i >= 0; i--)
+            {
+                hash+= a[i];
+                            
+            }
+            return hash;
+        }
         private readonly ILogger<IndexModel> _logger;
         private readonly Razor.model.Context context;
 
@@ -23,13 +47,15 @@ namespace Razor.Pages
         [BindProperty(SupportsGet = true)]
         public List<Product> product{set;get;}
 
-        public void OnGet(string Search_Name)
+        public void OnGet()
         {
-            var kq = (from a in context.products select a).ToList();
-            if(!string.IsNullOrEmpty(Search_Name)){
-                ViewData["Post"]= kq.Where(p =>p.Name.Contains(Search_Name)).ToList();
-
+            var kq = (from a in context.products orderby a.sold descending select a).ToList();
+             
+            for (int i = 0; i < 3; i++)
+            {
+                product.Add(kq[i]);
             }
+
         }
         public void OnPost(){
 

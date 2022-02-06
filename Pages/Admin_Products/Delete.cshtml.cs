@@ -49,7 +49,8 @@ namespace Razor.Pages_Admin_Products
 
             if (Product != null)
             {
-                _context.products.Remove(Product);;
+                _context.products.Remove(Product);
+                await _context.SaveChangesAsync();
             }
 
             return RedirectToPage("./Index");

@@ -40,6 +40,7 @@ namespace Razor.Pages_Admin_Products
         {
             if (!ModelState.IsValid)
             {
+                return RedirectToPage("/Index");
                 
             }
             string file;
@@ -53,8 +54,10 @@ namespace Razor.Pages_Admin_Products
                     Product.Anh1 = leng;
                 }
             }
-            await _context.products.AddAsync(Product);
-            await _context.SaveChangesAsync();
+            if(!_context.products.Contains(Product)){
+                await _context.products.AddAsync(Product);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToPage("/Admin_Products/Index");
             
         }

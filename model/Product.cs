@@ -33,5 +33,21 @@ namespace Razor.model{
         public int MaKho{set;get;}       //
         public Kho kho{set;get;}       //
 
+        public override bool Equals(object obj)
+        {
+            Product s = obj as Product;
+            if(s == null){
+                return false;
+            }
+            if(Name.Equals(s.Name)){
+                return true;
+            }
+            return false;
+        }
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
+        }
+
     }
 }
