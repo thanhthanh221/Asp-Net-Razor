@@ -11,18 +11,16 @@
     int countPages   = Model.countPages;
     var GetFunc  = Model.GetFunc;
     
-    if (currentPage > countPages){
+    if (currentPage > countPages) 
       currentPage = countPages;
-    }
 
-    if (countPages <= 1){
-        return;
-    }
+    if (countPages <= 1) return;
+    
 
     int? preview = null;
     int? next = null;
 
-    if (currentPage > 0)
+    if (currentPage > 1)
         preview = currentPage - 1;
 
     if (currentPage < countPages)
@@ -70,7 +68,6 @@
             }
         }
     }
-
 }
 
 @* PHÁT SINH HTML*@

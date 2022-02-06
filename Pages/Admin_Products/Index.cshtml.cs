@@ -53,13 +53,13 @@ namespace Razor.Pages_Admin_Products
             int total_Products = _context.products.Count();
 
             countPages = total_Products/ITEM_PER_PAGE;
-            if(countPages<0){
-                countPages = 0;
+            if(currentPage < 1){
+                currentPage = 1;
             }
-            else if(countPages> countPages){
+            else if(countPages > countPages){
                 currentPage = countPages;
             }
-            var kq = (from a in _context.products orderby a.Name select a).Skip((currentPage)*ITEM_PER_PAGE).Take(ITEM_PER_PAGE);
+            var kq = (from a in _context.products orderby a.Name select a).Skip((currentPage-1)*ITEM_PER_PAGE).Take(ITEM_PER_PAGE);
             if(string.IsNullOrEmpty(name_Product)){
                 Product = kq.ToList();
             }

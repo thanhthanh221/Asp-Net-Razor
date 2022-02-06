@@ -77,6 +77,14 @@ namespace Razor
                 options.AccessDeniedPath ="/Identity/Account/AccessDenied";
 
             });
+            services.AddAuthentication().
+                AddGoogle(options=>{
+                    IConfiguration google_config = Configuration.GetSection("Authentication:Google");
+                    options.ClientId= google_config["ClientId"];
+                    options.ClientSecret= google_config["ClientSecret"];
+                    options.CallbackPath="/Login_Google";
+                });
+                
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

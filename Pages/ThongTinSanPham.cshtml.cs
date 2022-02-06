@@ -7,19 +7,37 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Razor.model;
+using System.Threading;
 namespace Razor.model{
-    public class ThongTinSanPham: PageModel{
+    public class ThongTinSanPhamModel: PageModel{
         private readonly Razor.model.Context context;
         [BindProperty]
-        public List<Product> products{set;get;}
-        public ThongTinSanPham(Razor.model.Context context){
+        public Product product{set;get;}
+        public ThongTinSanPhamModel(Razor.model.Context context){
             this.context = context;
         }
-        public void OnGet([FromRoute]int? x)
+        public void OnGet(int? id)
         {
-            var kq = (from a in context.products where a.MaSanPham == x orderby a.Price select a).FirstOrDefault();
+            var kq = (from a in context.products where a.MaSanPham == id orderby a.Price select a).FirstOrDefault();
+            if(kq != null){
+                product = kq;
+            }
+            else
+            {
+               
+            }
             
-            ViewData["Data"] = kq;
+        }
+        public void OnPost(int? id){
+            var kq = (from a in context.products where a.MaSanPham == id orderby a.Price select a).FirstOrDefault();
+            if(kq != null){
+                product = kq;
+            }
+            else
+            {
+               
+            }
+
         }
 
     }

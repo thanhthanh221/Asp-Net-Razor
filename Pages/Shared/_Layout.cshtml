@@ -30,6 +30,22 @@
 
 	</head>
 	<body>
+		<div class="search-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="close-btn"><i class="fas fa-window-close"></i></span>
+					<div class="search-bar">
+						<div class="search-bar-tablecell">
+							<h3>Search For:</h3>
+							<input type="text" placeholder="Keywords">
+							<button type="submit">Search <i class="fas fa-search"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 		<div class="top-header-area" id="sticker">
 		<div class="container">
 			<div class="row">
@@ -56,9 +72,7 @@
 								<li><a href="about.html">About</a></li>
 								<li><a href="#">Pages</a>
 									<ul class="sub-menu">
-										<li><a href="404.html">404 page</a></li>
 										<li><a href="about.html">About</a></li>
-										<li><a href="cart.html">Cart</a></li>
 										<li><a href="checkout.html">Check Out</a></li>
 										<li><a href="contact.html">Contact</a></li>
 										<li><a href="news.html">News</a></li>
@@ -75,9 +89,7 @@
 								<li><a asp-page="/Shop" asp-area="">Shop</a>
 									<ul class="sub-menu">
 										<li><a asp-page ="/Index">Shop</a></li>
-										<li><a href="checkout.html">Check Out</a></li>
 										<li><a asp-page ="/Admin_Products/Index">Amin Product</a></li>
-										<li><a asp-page ="/Cart">Cart</a></li>
 									</ul>
 								</li>							
 								<li>
@@ -96,7 +108,12 @@
 				</div>
 			</div>
 		</div>
-	</div>	
+	</div>
+	<div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
 		@RenderBody()
 	<div class="footer-area">
 		<div class="container">
@@ -121,9 +138,9 @@
 					<div class="footer-box pages">
 						<h2 class="widget-title">Pages</h2>
 						<ul>
-							<li><a href="index.html">Home</a></li>
+							<li><a asp-page="/Index">Home</a></li>
 							<li><a href="about.html">About</a></li>
-							<li><a href="services.html">Shop</a></li>
+							<li><a asp-page="/Shop">Shop</a></li>
 							<li><a href="news.html">News</a></li>
 							<li><a href="contact.html">Contact</a></li>
 						</ul>
@@ -137,6 +154,28 @@
 							<input type="email" placeholder="Email">
 							<button type="submit"><i class="fas fa-paper-plane"></i></button>
 						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-12">
+					<p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.<br>
+						Distributed By - <a href="https://themewagon.com/">Themewagon</a>
+					</p>
+				</div>
+				<div class="col-lg-6 text-right col-md-12">
+					<div class="social-icons">
+						<ul>
+							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+						</ul>
 					</div>
 				</div>
 			</div>
