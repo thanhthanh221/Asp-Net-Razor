@@ -52,7 +52,7 @@ namespace Razor.Pages_Admin_Products
         {
             int total_Products = _context.products.Count();
 
-            countPages = total_Products/ITEM_PER_PAGE;
+            countPages = (int)Math.Ceiling((double)total_Products/ITEM_PER_PAGE);
             if(currentPage < 1){
                 currentPage = 1;
             }

@@ -51,11 +51,11 @@ namespace Razor
                 options.Password.RequireLowercase = true; // bắt phải có chữ thường
                 options.Password.RequireNonAlphanumeric = false; // Không bắt ký tự đặc biệt
                 options.Password.RequireUppercase = true; // bắt buộc chữ in
-                options.Password.RequiredLength = 7;     // Số ký tự tối thiểu của password
+                options.Password.RequiredLength = 6;     // Số ký tự tối thiểu của password
                 options.Password.RequiredUniqueChars = 0; // Số ký tự riêng biệt
 
                 // Cấu hình Lockout - khóa user
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMilliseconds(1); // Khóa 5 phút
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMilliseconds(5); // Khóa 5 phút
                 options.Lockout.MaxFailedAccessAttempts = 5; // Thất bại 5 lầ thì khóa
                 options.Lockout.AllowedForNewUsers = true;
 
@@ -77,13 +77,22 @@ namespace Razor
                 options.AccessDeniedPath ="/Identity/Account/AccessDenied";
 
             });
-            services.AddAuthentication().
-                AddGoogle(options=>{
+            services.AddAuthentication()
+                .AddGoogle(options=>{
                     IConfiguration google_config = Configuration.GetSection("Authentication:Google");
                     options.ClientId= google_config["ClientId"];
                     options.ClientSecret= google_config["ClientSecret"];
                     options.CallbackPath="/Login_Google";
+                })
+                .AddFacebook(options =>{
+                    IConfiguration Facebook_config = Configuration.GetSection("Authentication:Facebook");
+                    options.AppId= Facebook_config["AppId"];
+                    options.AppSecret= Facebook_config["AppSecret"];
+                    options.CallbackPath="/Login_Facebook";
+
                 });
+                
+                
                 
         }
 
