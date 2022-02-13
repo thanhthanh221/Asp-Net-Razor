@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace Razor.model{
     [Table("Sản Phẩm")]
@@ -21,6 +22,10 @@ namespace Razor.model{
         [Display(Name ="Ảnh")]
         public byte[] Anh1{set;get;}     //
         [Required]
+        [Display(Name ="Mô Tả")]
+        [Column("Mô Tả")]
+        public string Description{set;get;}
+        [Required]
         [Column("Số Lượng")]
         [Display(Name ="Số Lượng")]
         public int SoLuong{set;get;}     //
@@ -32,6 +37,7 @@ namespace Razor.model{
         [Column("Mã Kho")]
         public int MaKho{set;get;}       //
         public Kho kho{set;get;}       //
+        public virtual List<Product_Attribute> product_Attributes{set;get;} //
 
         public override bool Equals(object obj)
         {
