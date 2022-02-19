@@ -16,6 +16,9 @@ namespace Razor.model{
         [Required]
         public int ID_Shiper{set;get;}
         public Shipper shipper{set;get;}
+        // Id người mua hóa đơn này
+        public string Id_User{set;get;}
+        public readonly  AppUser appUser;
 
     }
 }

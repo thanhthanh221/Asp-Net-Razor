@@ -1,0 +1,45 @@
+﻿@page
+@model Razor.Admin.Role.IndexModel
+@{
+}
+<head>
+    <title>Role User</title>
+</head>
+<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Organic Information</p>
+						<h1>Quản lý các role</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<div>
+    <a class="btn btn-secondary m-3" asp-page="./Create">Tạo Vai Trò Mới</a>
+    <a class="btn btn-secondary m-3" asp-page="../User/Index">Các User</a>
+
+</div>
+<partial name="_StatusMessage" model = "@Model.StatusMessage"></partial>
+<div class="col-md-10 p-5 m-3 ">
+    <table class="table">
+        <tr>
+            <th>Tên Role(vai trò)</th>
+            <th>Tác Vụ</th>
+        </tr>
+        @foreach (var item in Model.roles)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>
+                    <a class="btn btn-primary" asp-page="./Edit" asp-route-role_Id= "@item.Id">Cập Nhật</a>
+                    <a class="btn btn-danger" asp-page="./Delete" asp-route-role_Id= "@item.Id">Xóa</a>
+                </td>
+            </tr>
+        }
+        
+
+    </table>
+</div>

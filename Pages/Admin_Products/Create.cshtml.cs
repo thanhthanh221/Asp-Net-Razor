@@ -10,9 +10,11 @@ using Razor.model;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Razor.Pages_Admin_Products
 {
+    [Authorize(Roles ="Admin")]
     public class CreateModel : PageModel
     {
         private IHostingEnvironment environment;

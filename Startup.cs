@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Album.Mail;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Html;
+using Razor.Service;
 
 
 namespace Razor
@@ -25,7 +26,7 @@ namespace Razor
         public Startup(IConfiguration configuration,IWebHostEnvironment env)
         {
             Configuration = configuration;
-            ContentRootPath = env.ContentRootPath;
+            this.ContentRootPath = env.ContentRootPath;
         }
 
         public IConfiguration Configuration { get; }
@@ -41,7 +42,6 @@ namespace Razor
             services.AddOptions();
             IConfiguration mailSetting = Configuration.GetSection("MailSettings");
             services.AddSingleton<IEmailSender,SendMailService>();
-
 
             services.Configure<MailSettings>(mailSetting);
             services.AddIdentity<AppUser,IdentityRole>().AddEntityFrameworkStores<Context>().AddDefaultTokenProviders();       
@@ -90,7 +90,9 @@ namespace Razor
                     options.AppSecret= Facebook_config["AppSecret"];
                     options.CallbackPath="/Login_Facebook";
 
-                });
+            });
+            services.AddSingleton<IdentityErrorDescriber,AppIdentityErrorDescriber>();
+
                 
                 
                 
