@@ -1,0 +1,41 @@
+﻿@page
+@model Razor.Admin.Role.CreateModel
+@{
+}
+<head>
+    <title>Nhập Role</title>
+    <link rel="stylesheet" type="text/css" href="~/css/Create.css">
+</head>
+<partial name="_StatusMessage" model="@Model.StatusMessage"></partial>
+<div class="form-body" style="background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    font-family: 'Numans', sans-serif;">
+        <div class="row">           
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <h3>Thêm Role</h3>
+                        <hr>
+                        <form method="post" class="requires-validation" enctype="multipart/form-data">
+
+                            <div class="col-md-12">
+                                <input asp-for="Input.Name" class="form-control" placeholder="Tên Role">
+                            </div>
+                            <br>
+                            <div class="form-button mt-3">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <button type="submit" class="btn btn-lg btn-outline-primary m-3">Nhập</button>
+                                <a class="btn btn-lg btn-outline-primary m-3" asp-page ="./Index">Danh Sách các Role</a>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@section Scripts {
+   @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} 
+}

@@ -1,0 +1,50 @@
+﻿@page
+@model Razor.Admin.User.IndexModel
+@{
+}
+<head>
+    <title>User Login</title>
+</head>
+    <div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Organic Information</p>
+						<h1>Quản lý các User</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<br> 
+<partial name="_StatusMessage" model = "@Model.StatusMessage"></partial>
+<div class="col-md-10 p-5 m-3 ">
+    <table class="table">
+        <tr>
+            <th>User</th>
+            <th>Role(Vai trò)</th>
+            <th>Tác Vụ</th>
+        </tr>
+        @foreach (var item in Model.AppUsers)
+        {
+            <tr>
+                <td>@item.UserName</td>
+                <td>
+                    @if(!string.IsNullOrEmpty(item.Role_Name_User)){
+                        <a asp-page="./AddRole" asp-route-role_Id= "@item.Id">@item.Role_Name_User</a>
+                    }
+                    else{
+                        <a asp-page="./AddRole" asp-route-role_Id= "@item.Id">+Thêm Roles</a>
+                    }
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-page="./SetPassword" asp-route-role_Id= "@item.Id">Cập nhật mật khẩu</a>
+                    <a class="btn btn-danger" asp-page="./AddRole" asp-route-role_Id= "@item.Id">Thiết lập Role</a>
+                </td>
+            </tr>
+        }
+        
+
+    </table>
+</div>

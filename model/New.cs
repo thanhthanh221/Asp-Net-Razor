@@ -19,6 +19,8 @@ namespace Razor.model{
         [Required]
         [Column("Ngày Tạo")]
         public DateTime Date_Created{set;get;}
+        public string Id_User{set;get;}
+        public readonly AppUser appUser;
 
     }
 }

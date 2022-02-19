@@ -15,8 +15,19 @@ namespace Razor.model{
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            foreach (var item in modelBuilder.Model.GetEntityTypes())// lấy được thông tin các bảng trên SQL Sever
+            {
+                string Table_Name = item.GetTableName();
+                if(Table_Name.StartsWith("AspNet")){
+                    // Phương thức subString bỏ đi số kí tự đầu tiên trong bảng
+                    item.SetTableName(Table_Name.Substring(6));
+                }
+            }
+
+
             modelBuilder.Entity<HoaDon>(entity=>{
                 entity.HasOne(p=> p.shipper).WithMany(c=> c.hoaDon).HasForeignKey("ID_Shiper").OnDelete(DeleteBehavior.Cascade);
+                entity.HasOne(p=> p.appUser).WithMany(c => c.hoaDons).HasForeignKey("Id_User").OnDelete(DeleteBehavior.Cascade);
             });
             modelBuilder.Entity<Product>(entity =>{
                 entity.HasOne(p=>p.kho).WithMany(c =>c.Products).HasForeignKey("MaKho").OnDelete(DeleteBehavior.Cascade);
@@ -28,6 +39,10 @@ namespace Razor.model{
             });
             modelBuilder.Entity<Attributes_Value>(entity=>{
                 entity.HasOne(p=> p.Attributes).WithMany(c =>c.attributes_Values).HasForeignKey(c=> c.Attributes_ID).OnDelete(DeleteBehavior.Cascade);
+            });
+            modelBuilder.Entity<New>(entity=>{
+                entity.HasOne(p=> p.appUser).WithMany(c => c.news).HasForeignKey(p => p.Id_User).OnDelete(DeleteBehavior.Cascade);
+
             });
             
             
