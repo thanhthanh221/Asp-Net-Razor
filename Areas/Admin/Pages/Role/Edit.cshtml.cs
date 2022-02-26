@@ -8,10 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Razor.Admin.Role
 {
-    [Authorize]
+    [Authorize(Policy = "ChinhSach2")]
     public class EditModel : Role_PageModel
     {
         public EditModel(RoleManager<IdentityRole> roleManager, Context context) : base(roleManager, context)
@@ -26,6 +27,8 @@ namespace Razor.Admin.Role
         [BindProperty]
         public InputModel Input{set;get;}
         public IdentityRole identityRole{set;get;}
+        [BindProperty(SupportsGet = true)]
+        public IList<IdentityRoleClaim<string>> identityRoleClaims{set;get;}
         
 
         public async Task<IActionResult> OnGetAsync(string role_Id) // Phương thức dùng để
@@ -38,6 +41,12 @@ namespace Razor.Admin.Role
                 Input = new InputModel(){
                     Name = identityRole.Name
                 };
+                // Tìm claim của roles => chỉ trả về giá trị và kiểu của claims 
+                // IList<Claim> kq= await roleManager.GetClaimsAsync(identityRole);
+
+                var SClaim = context.RoleClaims.Where(claim => claim.RoleId == identityRole.Id);
+                identityRoleClaims = await SClaim.ToListAsync();
+                              
                 return Page();
             }
             
@@ -52,6 +61,7 @@ namespace Razor.Admin.Role
                 return Page();
             }
             identityRole.Name = Input.Name;
+            // Phải Update mới 
             IdentityResult reuslt = await roleManager.UpdateAsync(identityRole);
 
             if(reuslt.Succeeded){

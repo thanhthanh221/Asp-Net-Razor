@@ -1,0 +1,43 @@
+@page
+@model Razor.Admin.Role.Claims_User.EditClaimUser
+@{
+}
+<head>
+    <title>Edit Claim User</title>
+    <link rel="stylesheet" type="text/css" href="~/css/Create.css">
+</head>
+<div class="form-body" style="background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    font-family: 'Numans', sans-serif;">
+        <div class="row">           
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <h4 class="">Chỉnh sửa claim cho user :<strong class="text text-danger">@Model.appUser.UserName</strong></h4>
+                        <hr>
+                        <form method="post" class="requires-validation" enctype="multipart/form-data">
+                            <partial name="_StatusMessage" model="@Model.StatusMessage"></partial>
+                            <div class="col-md-12">
+                                <input asp-for="Input.Claim_Type" class="form-control" placeholder="Type của Claim">
+                            </div>
+                             <div class="col-md-12">
+                                <input asp-for="Input.Claim_Value" class="form-control" placeholder="giá trị của claim">
+                            </div>
+                            <br>
+                            <div class="form-button mt-3">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <button type="submit" class="btn btn-lg btn-primary m-3">Tạo Mới</button>
+                                <button type="submit" asp-page-handler="Delete" asp-route-Claim_Id ="@Model.identityUserClaim.Id" class="btn btn-lg btn-danger m-3">Xóa</button>
+
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+    </div>
+@section Scripts {
+   @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} 
+}

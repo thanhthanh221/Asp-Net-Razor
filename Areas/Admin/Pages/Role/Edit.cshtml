@@ -15,11 +15,12 @@
 		</div>
 	</div>
 <div class="row m-lg-5">           
-            <div class="form-holder ">
-                <div class="form-content">
-                    <div class="form-items">
-                    <h3>Update Role</h3>
+    <div class="form-holder ">
+        <div class="form-content">
+            <div class="form-items">
+                <h3>Update Role</h3>
                     <hr>
+                    <partial name="_StatusMessage" model = "@Model.StatusMessage"></partial>
                     <form  method="post" class="requires-validation" enctype="multipart/form-data">
 
                         <div class="col-md-12">
@@ -29,9 +30,22 @@
                         <div class="form-button mt-3">
                             <button type="submit" class="btn btn-outline-primary m-3">Đổi</button>
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    </div>
-                </form>
+                        </div>
+                    </form>
             </div>
+            <p> Các Claim : (Đặc tính của Roles):
+                <a asp-page ="./Claims/AddClaimsMode" asp-route-role_Id ="@Model.identityRole.Id"> +Thêm Claim</a>
+            </p>
+            <ul>
+                @if(Model.identityRoleClaims.Count() > 0){
+                    foreach (var item in Model.identityRoleClaims)
+                    {
+                        <a asp-page="./Claims/EditClaimsMode" asp-route-Claim_Id ="@item.Id" ><li> @item.ClaimType : @item.ClaimValue</li></a>
+                    }
+
+                }
+            </ul>
         </div>
     </div>
+</div>
 </div>

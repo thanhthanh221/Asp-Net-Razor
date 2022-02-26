@@ -6,6 +6,7 @@
 	paging.currentPage = Model.currentPage;
 	paging.countPages = Model.countPages;
 	paging.GetFunc = (int? p ) =>Url.Page("/Admin_Products/Index",new {p= p});
+	
 
 }
   <head>
@@ -48,9 +49,13 @@
 								</tr>
 							</thead>
 							<tbody>
-								<form method="post">
+								
 									@foreach (var item in Model.Product)
-										{						
+										{
+											if(Model.Result.Any(p => p.ID == item.MaSanPham)){
+												string s= Model.Result.Where(p=> p.ID== item.MaSanPham).FirstOrDefault().value;
+
+											}
 											<tr class="alert" role="alert">
 													<td>
 														<label class="checkbox-wrap checkbox-primary">
@@ -59,12 +64,17 @@
 															</label>
 													</td>
 													<td>			
-														<div class="img"><img src="~/img/Products/Product-img-@item.Name+.jpg"></div>	
+														<div class="img">
+															<a asp-page ="./Edit" asp-route-id ="@item.MaSanPham">
+															    <img src="~/img/Products/Product-img-@item.Name+.jpg">
+															</a>
+														</div>	
 													</td>
 												<td>
 													<span>@item.Name</span>
 												</td>
-												<td>@Model.SetUpMoney(item.Price) VNĐ</td>
+												<td>@Model.SetUpMoney(item.Price) VNĐ<small>/</small>
+												</td>
 												<td class="quantity">
 													<form method="post" >
 														<div class="input-group">
@@ -77,12 +87,12 @@
 											</div>
 												<td>
 													<form method="post">
-														<button type="submit" asp-page="./Delete" asp-route-id="@item.MaSanPham" class="close" aria-label="Close">
+														<button type="submit" asp-route-Id="@item.MaSanPham" asp-page ="./Delete"  class="close" aria-label="Close">
 															<span>
 																<i class="fa fa-close"></i>
 															</span>
 														</button>
-													</form>										
+													</form>									
 												</td>
 											</tr>										
 										}
@@ -93,7 +103,7 @@
 												</div>
 											</div>
 										</div>
-									</form>
+									
 							</tbody>
 							</table>
 						</div>

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Razor.model;
+using System.Threading;
 
 namespace Razor.Areas.Identity.Pages.Account.Manage
 {
@@ -16,13 +17,17 @@ namespace Razor.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly Razor.model.Context context;
 
         public IndexModel(
             UserManager<AppUser> userManager, // thông tin người dùng
-            SignInManager<AppUser> signInManager)  // thông tin để đăng nhập
+            SignInManager<AppUser> signInManager,  // thông tin để đăng nhập
+            Razor.model.Context context            // Context dữ liệu
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            this.context = context;
         }
         [Display(Name ="Tên Tài Khoản")]
         public string Username { get; set; }
@@ -38,18 +43,22 @@ namespace Razor.Areas.Identity.Pages.Account.Manage
             [Phone(ErrorMessage ="{0} sai định dạng")]
             [Display(Name = "Số điện thoại")]
             public string PhoneNumber { get; set; }
+            [Display(Name = "Số Tiền đã dùng")]
+            public double Money_User {set;get;}
         }
 
         private async Task LoadAsync(AppUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var TienSuDung = user.Monney_Use;
 
             Username = userName; // gán biến username  = UserName
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                Money_User = TienSuDung
             };
         }
 
