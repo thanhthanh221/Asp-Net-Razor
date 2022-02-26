@@ -14,7 +14,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Razor.Pages_Admin_Products
 {
-    [Authorize(Roles ="Admin")]
+    // Phải thỏa mãn chính sách TenChinhSach => { Phải đăng nhập, Phải là Admin, Phải là Editor}
+    [Authorize(Policy = "ChinhSach2")] 
     public class CreateModel : PageModel
     {
         private IHostingEnvironment environment;
@@ -40,6 +41,7 @@ namespace Razor.Pages_Admin_Products
         
         public async Task<IActionResult> OnPostAsync()
         {
+            // Dữ Liệu không phù hợp
             if (!ModelState.IsValid)
             {
                 return RedirectToPage("/Index");
@@ -60,7 +62,7 @@ namespace Razor.Pages_Admin_Products
                 await _context.products.AddAsync(Product);
                 await _context.SaveChangesAsync();
             }
-            return RedirectToPage("/Admin_Products/Index");
+            return RedirectToPage("./Index");
             
         }
     }

@@ -37,7 +37,13 @@ namespace Razor.model{
         [Column("Mã Kho")]
         public int MaKho{set;get;}       //
         public Kho kho{set;get;}       //
+        [Column("Mã Danh Mục")]
+        [Display(Name = "Danh Mục")]
+        public int? Categorie_id{set;get;}//
+        public Categories categories{set;get;}
         public virtual List<Product_Attribute> product_Attributes{set;get;} //
+        // Phần nhièu
+        public readonly List<Product_Sell_Bill> product_Sell_Bills;
 
         public override bool Equals(object obj)
         {

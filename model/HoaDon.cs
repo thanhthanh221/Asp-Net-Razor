@@ -19,6 +19,7 @@ namespace Razor.model{
         // Id người mua hóa đơn này
         public string Id_User{set;get;}
         public readonly  AppUser appUser;
+        public readonly List<Product_Sell_Bill> product_Sell_Bill;
 
     }
 }

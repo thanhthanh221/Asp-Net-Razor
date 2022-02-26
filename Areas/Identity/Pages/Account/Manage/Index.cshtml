@@ -23,6 +23,11 @@
                 <input asp-for="Input.PhoneNumber" class="form-control" />
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Input.Money_User"></label>
+                <input asp-for="Input.Money_User" class="form-control" disabled />
+                <span asp-validation-for="Input.Money_User" class="text-danger"></span>
+            </div>
             <button id="update-profile-button" type="submit" class="btn btn-primary">Lưu</button>
         </form>
     </div>

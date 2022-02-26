@@ -23,14 +23,13 @@ namespace Razor.model{
                     item.SetTableName(Table_Name.Substring(6));
                 }
             }
-
-
             modelBuilder.Entity<HoaDon>(entity=>{
                 entity.HasOne(p=> p.shipper).WithMany(c=> c.hoaDon).HasForeignKey("ID_Shiper").OnDelete(DeleteBehavior.Cascade);
                 entity.HasOne(p=> p.appUser).WithMany(c => c.hoaDons).HasForeignKey("Id_User").OnDelete(DeleteBehavior.Cascade);
             });
             modelBuilder.Entity<Product>(entity =>{
                 entity.HasOne(p=>p.kho).WithMany(c =>c.Products).HasForeignKey("MaKho").OnDelete(DeleteBehavior.Cascade);
+                entity.HasOne(p => p.categories).WithMany(c => c.products).HasForeignKey(p => p.Categorie_id).OnDelete(DeleteBehavior.Cascade);
 
             });
             modelBuilder.Entity<Product_Attribute>(entity=>{
@@ -43,6 +42,10 @@ namespace Razor.model{
             modelBuilder.Entity<New>(entity=>{
                 entity.HasOne(p=> p.appUser).WithMany(c => c.news).HasForeignKey(p => p.Id_User).OnDelete(DeleteBehavior.Cascade);
 
+            });
+            modelBuilder.Entity<Product_Sell_Bill>(entity =>{
+                entity.HasOne(p => p.hoaDon).WithMany(c => c.product_Sell_Bill).HasForeignKey(p => p.MaHoaDon).OnDelete(DeleteBehavior.Cascade);
+                entity.HasOne(p => p.product).WithMany(c =>c.product_Sell_Bills).HasForeignKey(p =>p.Product_ID).OnDelete(DeleteBehavior.Cascade);
             });
             
             

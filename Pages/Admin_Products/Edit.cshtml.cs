@@ -34,9 +34,21 @@ namespace Razor.Pages_Admin_Products
 
             if (Product == null)
             {
-                return NotFound();
+                return NotFound("Không tìm thấy sản phẩm");
             }
-           ViewData["MaKho"] = new SelectList(_context.khos, "MaKho", "MaKho");
+            // B1 nhóm tất cả các giá trị của thuộc tính theo thuộc tính
+            var kq = (from p in _context.attributes_Values where p.Attributes_ID == 1 select p).ToList();
+            // B2 lấy tất cả thuộc tính sản phẩm của sản phẩm
+            var Result = (from a in kq 
+                        join p in _context.product_Attributes on a.ID equals p.Product_ID
+                        select new {
+                            ID = p.Product_ID,
+                            Value = a.value
+                        }).ToList();
+
+            
+
+            ViewData["MaKho"] = new SelectList(_context.khos, "MaKho", "MaKho");
             return Page();
         }
 

@@ -32,7 +32,9 @@
 						<div class="single-product-content">
 							<h3>@Model.product.Name</h3>
 							<p class="single-product-pricing"><span>Mỗi Kg</span>@Model.SetUpMoney(@Model.product.Price) VNĐ</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta sint dignissimos, rem commodi cum voluptatem quae reprehenderit repudiandae ea tempora incidunt ipsa, quisquam animi perferendis eos eum modi! Tempora, earum.</p>
+							@if(!string.IsNullOrEmpty(Model.product.Description)){
+							    <p>@Model.product.Description</p>
+							}
 							<div class="single-product-form">
 								<form action="index.html">
 									<input type="number" placeholder="0">

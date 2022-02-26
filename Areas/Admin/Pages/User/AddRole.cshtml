@@ -34,9 +34,29 @@
                     <span asp-validation-for="@Model.Role_Name" class="text-danger"></span>
                 </div>
                     <button class="btn btn-primary" type="submit" >Cập nhật</button>
-                    <a class="btn btn-secondary" type="submit" >Danh sách thành viên</a>
-
+                    <a asp-page ="./Index" class="btn btn-secondary" >Danh sách thành viên</a>
             </form>
+            <p><strong>Tất cả các Claim của Role</strong></p>
+            <ul>
+                @if(Model.identityRoleClaims.Count() > 0 ){
+                    foreach (var item in Model.identityRoleClaims)
+                    {
+                        <li> @item.ClaimType : @item.ClaimValue</li>
+                        
+                    }
+                }
+            </ul>
+            <hr>
+            <p><strong>Tất cả các Claim riêng của User</strong><a asp-page ="./Claim_User/CreateClaimUser" asp-route-User_Id ="@Model.user.Id"> +Thêm Claim </a></p>
+            <ul>
+                @if(Model.identityUserClaims.Count() > 0 ){
+                    foreach (var item in Model.identityUserClaims)
+                    {
+                        <li><a asp-page ="./Claim_User/EditClaimUser" asp-route-Claim_Id = "@item.Id" >  @item.ClaimType : @item.ClaimValue</a></li>
+                        
+                    }
+                }
+            </ul>
         </div>
     </div>
 </div>

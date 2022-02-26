@@ -88,6 +88,7 @@ namespace Razor.Areas.Identity.Pages.Account
                         result = await _signInManager.PasswordSignInAsync(LoginUserName, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                         if(result.Succeeded){
                             _logger.LogInformation("User Đã Đăng Nhập");
+                            // Nếu đúng trả về trang Index
                             return RedirectToPage("./Index");
                         }
                     }
@@ -102,7 +103,7 @@ namespace Razor.Areas.Identity.Pages.Account
                 {
                     return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
                 }
-                if (result.IsLockedOut)
+                if (result.IsLockedOut) // Tài Khoản bị khóa
                 {
                     _logger.LogWarning("Bị Xích Tài Khoản");
                     return RedirectToPage("./Lockout");
@@ -110,7 +111,7 @@ namespace Razor.Areas.Identity.Pages.Account
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Bịp à ??");
-                    return Page();
+                    return RedirectToPage("./Login", new InputModel(){UserName = Input.UserName,Password = Input.Password,RememberMe= Input.RememberMe});
                 }
             }
 

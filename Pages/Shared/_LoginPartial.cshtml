@@ -1,5 +1,6 @@
 @using Microsoft.AspNetCore.Identity
 @using Razor.model
+@using Microsoft.AspNetCore.Authorization
 
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
@@ -12,6 +13,9 @@
                             <ul class="sub-menu">
                                 <li>
                                     <a asp-page="/Admin_Products/Create">Creat Products</a>
+                                </li>
+                                <li>
+                                    <a asp-page ="/Role/Index" class="" asp-area="Admin">Role User</a>
                                 </li>
                                 <li>
                                     <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">

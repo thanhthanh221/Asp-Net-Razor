@@ -16,7 +16,9 @@ using Album.Mail;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Html;
 using Razor.Service;
-
+using System.Security.Claims;
+using Razor.Security.Requirements;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Razor
 {
@@ -92,6 +94,46 @@ namespace Razor
 
             });
             services.AddSingleton<IdentityErrorDescriber,AppIdentityErrorDescriber>();
+            services.AddAuthorization(option =>{
+                option.AddPolicy("TenChinhSach", policyBuilder=>{
+                    // Bên trong phải có điều kiện kiểm tra
+                    policyBuilder.RequireAuthenticatedUser();// User phải đăng nhập
+                    policyBuilder.RequireRole("Admin"); // Phải thỏa mãn role Admin
+                    policyBuilder.RequireRole("Editor"); // Phải thỏa mãn Role Editor 
+                    policyBuilder.RequireClaim("TenClaim", new string[]{
+                        "giatri1",
+                        "giatri2"
+                    }); // Phải thỏa mãn Claim nào "TenClaim"  với giá trị => new string[]
+                });
+                option.AddPolicy("ChinhSach2", policy =>{
+                    policy.RequireAuthenticatedUser();
+                    policy.RequireRole("Admin");
+                });
+                // Claim có thể đến từ 2 bảng trên csdl => UserClaims(Thuộc tính claim của user)- RoleClaim (Thuộc Tính Claim của Role )
+                
+                /*
+                IdentityRoleClaim<string>claim; => các claim theo Role
+                IdentityUserClaim<string> claim; => các claim theo User
+                => Cả 2 trường trên khi trả về đều [Claim claim] => [ClaimType - ClaimValue]
+                */
+
+                // Chính sách áp dụng những điều kiện riêng phải thỏa mãn yêu cầu nào đó không qua Role và Claim
+                option.AddPolicy("ChinhSach3",policy =>{
+                    policy.Requirements.Add(new ThanhVienVipRequirement(5,100000)); // Áp dụng trả về điều khiện riêng
+                    // Đây là Điều kiện => Phải tìm trên hệ thống đối tượng chuyên xử lý yêu cầu trên => Authorization handler
+                });
+                
+                // Mỗi Khi xác thực khi có Requirements thì sẽ gửi về đây để xác thực => mỗi lần truy vấn ra  đối tượng mới
+                services.AddTransient<IAuthorizationHandler, AppAuthorizationHandler>();
+                services.Configure<SecurityStampValidatorOptions>(options =>
+                {
+                    // Trên 30 giây truy cập lại sẽ nạp lại thông tin User (Role)
+                    // SecurityStamp trong bảng User đổi -> nạp lại thông tinn Security
+                    options.ValidationInterval = TimeSpan.FromSeconds(2);
+                });
+                
+                
+            });
 
                 
                 

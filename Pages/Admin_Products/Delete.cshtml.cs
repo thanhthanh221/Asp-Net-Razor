@@ -21,21 +21,10 @@ namespace Razor.Pages_Admin_Products
         [BindProperty]
         public Product Product { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public IActionResult OnGet()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Product = await _context.products
-                .Include(p => p.kho).FirstOrDefaultAsync(m => m.MaSanPham == id);
-
-            if (Product == null)
-            {
-                return NotFound();
-            }
-            return Page();
+            
+            return RedirectToPage("./Index");
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
@@ -52,7 +41,6 @@ namespace Razor.Pages_Admin_Products
                 _context.products.Remove(Product);
                 await _context.SaveChangesAsync();
             }
-
             return RedirectToPage("./Index");
         }
     }
