@@ -39,7 +39,11 @@
 								<form action="index.html">
 									<input type="number" placeholder="0">
 								</form>
-								<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+								<form method="post">
+									<button type="submit" asp-page = "./Cart" asp-route-Productid ="@Model.product.MaSanPham" style="padding: 0ch;border: 0ch;">
+                                        <a style="margin: 0%;" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+								    </button>
+								</form>
 								<p><strong>Categories: </strong>Fruits, Organic</p>
 							</div>
 							<h4>Share:</h4>

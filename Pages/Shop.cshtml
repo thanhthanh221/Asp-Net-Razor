@@ -52,7 +52,11 @@
 							</div>
 							<h3>@item.Name</h3>
 							<p class="product-price"><span>Mỗi Kg</span> @Model.SetUpMoney(item.Price) VNĐ</p>
-							<a asp-page ="/Cart" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+							<form method="post">
+							    <button style="border: 0ch;padding: 0%" asp-page ="/Cart" type="submit" asp-route-productid="@item.MaSanPham">
+								    <a class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+								</button>
+							</form>
 						</div>
 					</div>					
 				}					

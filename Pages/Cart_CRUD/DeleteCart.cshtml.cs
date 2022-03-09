@@ -10,18 +10,16 @@ using Razor.model;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace Razor.Pages{
-    [Authorize]
-    public class CartModel :PageModel{
+namespace Razor.Pages.Cart{
+    public class DeleteCart: PageModel{
         public class CartItem
         {
             public int quantity {set; get;}
             public Product product {set; get;}
         }
-        [BindProperty]
-        public int Sum{get; set;}
+        
         private readonly Razor.model.Context context;
-        public CartModel(Razor.model.Context context){
+        public DeleteCart(Razor.model.Context context){
             this.context = context;
             
         }
@@ -52,33 +50,22 @@ namespace Razor.Pages{
             session.SetString (CARTKEY, jsoncart);
         }
         public IActionResult OnPost(int productid){
-            var product = context.products
-                .Where (p => p.MaSanPham == productid)
-                .FirstOrDefault ();
-            if (product == null)
-                return NotFound ("Không có sản phẩm");
-
-            // Xử lý đưa vào Cart ...
-            var cart = GetCartItems ();
+            var cart = GetCartItems();
             var cartitem = cart.Find (p => p.product.MaSanPham == productid);
             if (cartitem != null) {
                 // Đã tồn tại, tăng thêm 1
-                cartitem.quantity++;
-            } else {
-                //  Thêm mới
-                cart.Add (new CartItem () { quantity = 1, product = product });
+                cart.Remove(cartitem);
             }
 
-            // Lưu cart vào Session
             SaveCartSession (cart);
-            // Chuyển đến trang hiện thị Cart
-            return RedirectToPage();
+
+            return RedirectToPage("./Cart");
      
 
         }
         public IActionResult OnGet(){
-            Sum = GetCartItems().Sum(p => p.product.Price* p.quantity);
-            return Page();
+            return RedirectToPage("./Cart");    
         }
+        
     }
 }

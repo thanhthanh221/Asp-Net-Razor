@@ -10,18 +10,16 @@ using Razor.model;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace Razor.Pages{
-    [Authorize]
-    public class CartModel :PageModel{
+namespace Razor.Pages.Cart{
+    public class UpdateCart: PageModel{
         public class CartItem
         {
             public int quantity {set; get;}
             public Product product {set; get;}
         }
-        [BindProperty]
-        public int Sum{get; set;}
+        
         private readonly Razor.model.Context context;
-        public CartModel(Razor.model.Context context){
+        public UpdateCart(Razor.model.Context context){
             this.context = context;
             
         }
@@ -77,8 +75,8 @@ namespace Razor.Pages{
 
         }
         public IActionResult OnGet(){
-            Sum = GetCartItems().Sum(p => p.product.Price* p.quantity);
-            return Page();
+            return RedirectToPage("./Cart");    
         }
+        
     }
 }

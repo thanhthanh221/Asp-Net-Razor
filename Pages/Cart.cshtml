@@ -1,8 +1,9 @@
 @page
 @model CartModel
-@{
+<head>
+	<title>Trang mua hàng</title>
+</head>
 
-}
 	<div class="breadcrumb-section breadcrumb-bg">
 		<div class="container">
 			<div class="row">
@@ -22,6 +23,12 @@
 	
 	<!-- breadcrumb-section -->
 	<!-- end breadcrumb section -->
+@if(Model.GetCartItems().Count()<= 0){
+	<h1 style="text-align: center;" class=""> Bạn chưa đặt sản phẩm nào</h1>
+	<a asp-page= "/Shop">Quay lại trang đặt hàng</a>
+
+}
+else{
 
 	<!-- cart -->
 	<div class="cart-section mt-150 mb-150">
@@ -33,38 +40,32 @@
 							<thead class="cart-table-head">
 								<tr class="table-head-row">
 									<th class="product-remove"></th>
-									<th class="product-image">Product Image</th>
-									<th class="product-name">Name</th>
-									<th class="product-price">Price</th>
-									<th class="product-quantity">Quantity</th>
+									<th class="product-image">Ảnh</th>
+									<th class="product-name">Sản Phẩm</th>
+									<th class="product-price">Giá</th>
+									<th class="product-quantity">Số Lượng</th>
 									<th class="product-total">Total</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="table-body-row">
-									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img src="~/img/products/product-img-1.jpg" alt=""></td>
-									<td class="product-name">Strawberry</td>
-									<td class="product-price">$85</td>
-									<td class="product-quantity"><input type="number" placeholder="0"></td>
-									<td class="product-total">1</td>
-								</tr>
-								<tr class="table-body-row">
-									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img src="~/img/products/product-img-2.jpg" alt=""></td>
-									<td class="product-name">Berry</td>
-									<td class="product-price">$70</td>
-									<td class="product-quantity"><input type="number" placeholder="0"></td>
-									<td class="product-total">1</td>
-								</tr>
-								<tr class="table-body-row">
-									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img src="~/img/products/product-img-3.jpg" alt=""></td>
-									<td class="product-name">Lemon</td>
-									<td class="product-price">$35</td>
-									<td class="product-quantity"><input type="number" placeholder="0"></td>
-									<td class="product-total">1</td>
-								</tr>
+								@foreach (var item in Model.GetCartItems())
+								{
+									<tr class="table-body-row">
+										<td class="product-remove">
+											<form method="post">
+												<button type="submit" style="border: 0ch;padding: 0%;">
+													<a asp-page ="./Cart_CRUD/DeleteCart" asp-route-productid= "@item.product.MaSanPham"><i class="far fa-window-close"></i></a>
+												</button>
+											</form>
+										</td>
+										<td class="product-image"><img src="~/img/products/product-img-@item.product.Name+.jpg" alt=""></td>
+										<td class="product-name">@item.product.Name</td>
+										<td class="product-price">@item.product.Price</td>
+										<td class="product-quantity"><input type="number" placeholder="@item.quantity"></td>
+										<td class="product-total">1</td>
+								    </tr>
+									
+								}
 							</tbody>
 						</table>
 					</div>
@@ -82,30 +83,33 @@
 							<tbody>
 								<tr class="total-data">
 									<td><strong>Subtotal: </strong></td>
-									<td>$500</td>
+									<td>@Model.Sum VNĐ</td>
 								</tr>
 								<tr class="total-data">
 									<td><strong>Shipping: </strong></td>
-									<td>$45</td>
+									<td>20000 VNĐ</td>
 								</tr>
+								@{
+									int Tong = Model.Sum+20000;
+								}
 								<tr class="total-data">
 									<td><strong>Total: </strong></td>
-									<td>$545</td>
+									<td>@Tong VNĐ</td>
 								</tr>
 							</tbody>
 						</table>
 						<div class="cart-buttons">
-							<a href="cart.html" class="boxed-btn">Update Cart</a>
+							<a asp-page = "./Cart" class="boxed-btn">Update Cart</a>
 							<a href="checkout.html" class="boxed-btn black">Check Out</a>
 						</div>
 					</div>
 
 					<div class="coupon-section">
-						<h3>Apply Coupon</h3>
+						<h3>Nhập mã giảm giá</h3>
 						<div class="coupon-form-wrap">
 							<form action="index.html">
-								<p><input type="text" placeholder="Coupon"></p>
-								<p><input type="submit" value="Apply"></p>
+								<p><input type="text" placeholder="Mã"></p>
+								<p><input type="submit" value="Nhập"></p>
 							</form>
 						</div>
 					</div>
@@ -114,3 +118,27 @@
 		</div>
 	</div>
 	<!-- end cart -->
+	@section Scripts {
+        <script>
+          $(document).ready(function () {
+              $(".updatecartitem").click(function (event) {
+                  event.preventDefault();
+                  var productid = $(this).attr("data-productid");
+                  var quantity = $("#quantity-" + productid).val();
+                  $.ajax({
+                      type: "POST",
+                      url:"@Url.RouteUrl("updatecart")",
+                      data: {
+                          productid: productid,
+                          quantity:quantity
+                      },
+                      success: function (result) {
+                          window.location.href = "@Url.RouteUrl("cart")";
+                      }
+                  });
+              });
+          });
+        </script>
+      }
+
+}

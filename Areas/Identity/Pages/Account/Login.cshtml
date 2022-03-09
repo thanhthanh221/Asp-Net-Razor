@@ -1,96 +1,73 @@
 @page
 @model LoginModel
-
 @{
-    ViewData["Title"] = "Đăng Nhập";
-	Layout = null;
+    ViewData["Title"] = "Đăng Kí Tài Khoản ";
+    Layout = null;
 }
-
-<html>
 <head>
-	<title>Trang Đăng Nhập</title>
-   <!--Made with love by Mutiullah Samim -->
-   
-	<!--Bootsrap 4 CDN-->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    
-    <!--Fontawesome CDN-->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Đăng Nhập</title>
 
-	<!--Custom styles-->
-	<link rel="stylesheet" type="text/css" href="~/css/site.css">
-	<!-- Icon -->
 	<link rel="shortcut icon" type="image/png" href="~/favicon.png">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="~/css/Login_Register.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+
 </head>
-<body style="background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100%;
-    font-family: 'Numans', sans-serif;">
-<div class="container">
-	<div class="d-flex justify-content-center h-100">
-		<div class="card">
-			<div class="card-header">
-				<h3>Đăng Nhập</h3>
-				<section>
-				@{
-					
-						<form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-							<div>
-								
-									<div class="d-flex justify-content-end social_icon">
-										@foreach (var provider in Model.ExternalLogins)
-										{
-											String s = provider.DisplayName.ToLower();
-											
-											<button  type="submit" name="provider" value="@provider.Name" title="Đăng nhập bằng @provider.DisplayName "><span><i class="fab fa-@s-plus-square"></i></span></button>
+<body>
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure><img src="~/img/Login_Register/signin-image.jpg" alt="sing up image"></figure>
+                        <a asp-page ="./Register" class="signup-image-link">Tạo tài khoản</a>
+                    </div>
+
+                    <div class="signin-form">
+                        <h2 class="form-title">Đăng Nhập</h2>
+                        <form method="POST" class="register-form" id="login-form">
+                            <div class="form-group">
+                                <label asp-for="Input.UserName"><i class="fas fa-user"></i></label>
+                                <input asp-for= "Input.UserName" type="text" name="your_name" id="your_name" placeholder="Your Name"/>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Input.Password"><i class="fas fa-lock"></i></label>
+                                <input asp-for="Input.Password" type="password" name="your_pass" id="your_pass" placeholder="Password"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Nhớ tài khoản</label>
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="signin" id="signin" class="form-submit" value="Đăng nhập"/>
+                            </div>
+                        </form>
+                        <div class="social-login">
+                            <span class="social-label">Đăng nhập bằng</span>
+							<form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+								<ul class="socials">
+									@foreach (var provider in Model.ExternalLogins)
+									{
+										if(provider.DisplayName.Equals("Facebook")){
+											<li><button style="border: 0ch;padding: 0%;" type="submit" name="provider" value="@provider.Name" title="Đăng nhập bằng @provider.DisplayName "><a><i class="display-flex-center zmdi zmdi-facebook"></i></a></button></li>
 										}
-									</div>
-								
-							</div>
-						</form>
-					
-				}
-				</section>
-			</div>
-			
-			<div class="card-body">
-				<form id = "account" method="post">
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i></span>
-						</div>
-						<input type="text" class="form-control" placeholder="username" asp-for="Input.UserName">
-						
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-key"></i></span>
-						</div>
-						<input type="password" class="form-control" placeholder="password" asp-for ="Input.Password">
-					</div>
-					<div class="row align-items-center remember">
-						<input type="checkbox">Remember Me
-					</div>
-					<div class="form-group">
-						<input type="submit" value="Login" class="btn float-right login_btn">
-						<div asp-validation-summary="All"></div>
-					</div>
-				</form>
-			</div>
-			<div class="card-footer">
-				<div class="d-flex justify-content-center links">
-					Bạn Chưa có tài khoản?<a asp-page ="/Account/Register" asp-area="Identity">Đăng kí</a>
-				</div>
-				<div class="d-flex justify-content-center">
-					<a asp-page = "/Account/ForgotPassword" asp-area ="Identity">Quên Mật Khẩu?</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+										else{
+                                            <li><button style="border: 0ch;padding: 0%;" type="submit" name="provider" value="@provider.Name" title="Đăng nhập bằng @provider.DisplayName "><a><i class="display-flex-center zmdi zmdi-google"></i></a></button></li>
+										}
+										
+                                    }
+                                </ul>
+							</form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 </body>
-</html>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
