@@ -19,7 +19,6 @@ using Razor.Service;
 using System.Security.Claims;
 using Razor.Security.Requirements;
 using Microsoft.AspNetCore.Authorization;
-
 namespace Razor
 {
     public class Startup
@@ -44,6 +43,12 @@ namespace Razor
             services.AddOptions();
             IConfiguration mailSetting = Configuration.GetSection("MailSettings");
             services.AddSingleton<IEmailSender,SendMailService>();
+
+            services.AddDistributedMemoryCache(); // Lưu trong bộ nhớ tạm dịch vụ
+            services.AddSession(content =>{
+                content.Cookie.Name = "Thanhthanh221";
+                content.IdleTimeout= new TimeSpan(0,60,0); // Thời gian tồn tại
+            });
 
             services.Configure<MailSettings>(mailSetting);
             services.AddIdentity<AppUser,IdentityRole>().AddEntityFrameworkStores<Context>().AddDefaultTokenProviders();       
@@ -131,8 +136,7 @@ namespace Razor
                     // SecurityStamp trong bảng User đổi -> nạp lại thông tinn Security
                     options.ValidationInterval = TimeSpan.FromSeconds(2);
                 });
-                
-                
+                 
             });
 
                 
@@ -156,6 +160,8 @@ namespace Razor
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseStatusCodePagesWithRedirects("/Error");
 

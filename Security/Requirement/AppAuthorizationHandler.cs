@@ -50,7 +50,7 @@ namespace Razor.Security.Requirements
             AppUser appUser = appuserTask.Result ; // => Task vụ hoàn thành
             // Kiểm tra xem có thỏa mãn điều kiện này không
             var hash = appUser.Count_DonHang;
-            var hash1 = appUser.Monney_Use;
+            var hash1 = appUser.Monney_Use ;
             bool kq = (appUser.Count_DonHang >= requirement.SoLuong && appUser.Monney >= requirement.SoTien) || user.IsInRole("Admin");
             return appUser.Count_DonHang >= requirement.SoLuong && appUser.Monney >= requirement.SoTien;
         }
