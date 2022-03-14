@@ -9,6 +9,8 @@ using Microsoft.Extensions.Logging;
 using Razor.model;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Identity;
+using Razor.Areas.Identity.Pages.Account;
 
 namespace Razor.Pages{
     [Authorize]
@@ -18,11 +20,40 @@ namespace Razor.Pages{
             public int quantity {set; get;}
             public Product product {set; get;}
         }
+        public string SetUpMoney(int value){
+            List<string> a = new List<string>();
+            string hash = string.Empty;
+            string s = value.ToString();
+            int temp = 0;
+            for (int i = s.Length-1; i >= 0; i--)
+            {
+                a.Add(s[i].ToString());
+                temp++;
+                if(temp== 3){
+                    temp= 0;
+                    a.Add(".");
+                }
+            }
+            if(!a[a.Count-1].Equals(".")){
+                hash+= a[a.Count-1];
+            }
+            for (int i = a.Count-2; i >= 0; i--)
+            {
+                hash+= a[i];
+                            
+            }
+            return hash;
+        }
         [BindProperty]
         public int Sum{get; set;}
         private readonly Razor.model.Context context;
-        public CartModel(Razor.model.Context context){
+        private readonly UserManager<AppUser> userManager;
+        private readonly SignInManager<AppUser> signInManager;
+        public CartModel(Razor.model.Context context,UserManager<AppUser> userManager,SignInManager<AppUser> signInManager ){
             this.context = context;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+            
             
         }
           // Key lưu chuỗi json của Cart
@@ -75,6 +106,42 @@ namespace Razor.Pages{
             return RedirectToPage();
      
 
+        }
+        public IActionResult OnPostDelete(int productid){
+            var cart = GetCartItems();
+            var cartitem = cart.Find (p => p.product.MaSanPham == productid);
+            if (cartitem != null) {
+                // Xóa Cart
+                cart.Remove(cartitem);
+            }
+
+            SaveCartSession (cart);
+
+            return RedirectToPage("./Cart");
+        }
+        public IActionResult OnPostUpdate(List<CartItem> cartItems){
+            if(cartItems == null){
+                return NotFound("Không có Dữ liệu");
+            }
+            SaveCartSession (cartItems);
+            // Trả về mã thành công (không có nội dung gì - chỉ để Ajax gọi)
+            return RedirectToPage("./Cart");
+        }
+        public async Task<IActionResult> OnPostCheckOutAsync(){
+            AppUser user = await userManager.GetUserAsync(User); // Phương thức tìm người thực thi yêu cầu
+            if(user == null){
+                return NotFound("Không tìm người dùng");
+            }
+
+            List<CartItem> cart = GetCartItems(); // Chuyển SS thành item
+            HoaDon New_HoaDon = new HoaDon(){
+                Money = Sum+ 20000,
+                Id_User = user.Id
+                
+            };
+        
+
+            return RedirectToPage("./Cart");
         }
         public IActionResult OnGet(){
             Sum = GetCartItems().Sum(p => p.product.Price* p.quantity);

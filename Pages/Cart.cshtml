@@ -29,7 +29,6 @@
 
 }
 else{
-
 	<!-- cart -->
 	<div class="cart-section mt-150 mb-150">
 		<div class="container">
@@ -42,7 +41,7 @@ else{
 									<th class="product-remove"></th>
 									<th class="product-image">Ảnh</th>
 									<th class="product-name">Sản Phẩm</th>
-									<th class="product-price">Giá</th>
+									<th class="product-price">Giá(VNĐ)</th>
 									<th class="product-quantity">Số Lượng</th>
 									<th class="product-total">Total</th>
 								</tr>
@@ -53,14 +52,14 @@ else{
 									<tr class="table-body-row">
 										<td class="product-remove">
 											<form method="post">
-												<button type="submit" style="border: 0ch;padding: 0%;">
-													<a asp-page ="./Cart_CRUD/DeleteCart" asp-route-productid= "@item.product.MaSanPham"><i class="far fa-window-close"></i></a>
+												<button type="submit" style="border: 0ch;padding: 0%;" asp-page ="./Cart" asp-route-productid= "@item.product.MaSanPham" asp-page-handler="Delete">
+													<a><i class="far fa-window-close"></i></a>
 												</button>
 											</form>
 										</td>
 										<td class="product-image"><img src="~/img/products/product-img-@item.product.Name+.jpg" alt=""></td>
 										<td class="product-name">@item.product.Name</td>
-										<td class="product-price">@item.product.Price</td>
+										<td class="product-price">@Model.SetUpMoney(item.product.Price)</td>
 										<td class="product-quantity"><input type="number" placeholder="@item.quantity"></td>
 										<td class="product-total">1</td>
 								    </tr>
@@ -76,31 +75,35 @@ else{
 						<table class="total-table">
 							<thead class="total-table-head">
 								<tr class="table-total-row">
-									<th>Total</th>
-									<th>Price</th>
+									<th>Mục</th>
+									<th>Giá</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr class="total-data">
-									<td><strong>Subtotal: </strong></td>
-									<td>@Model.Sum VNĐ</td>
+									<td><strong>Sản phẩm: </strong></td>
+									<td>@Model.SetUpMoney(Model.Sum) VNĐ</td>
 								</tr>
 								<tr class="total-data">
-									<td><strong>Shipping: </strong></td>
-									<td>20000 VNĐ</td>
+									<td><strong>Vận chuyển: </strong></td>
+									<td>20.000 VNĐ</td>
 								</tr>
 								@{
-									int Tong = Model.Sum+20000;
+									int Tong = Model.Sum+ 20000;
 								}
 								<tr class="total-data">
-									<td><strong>Total: </strong></td>
-									<td>@Tong VNĐ</td>
+									<td><strong>Tổng: </strong></td>
+									<td>@Model.SetUpMoney(Tong) VNĐ</td>
 								</tr>
 							</tbody>
 						</table>
 						<div class="cart-buttons">
-							<a asp-page = "./Cart" class="boxed-btn">Update Cart</a>
-							<a href="checkout.html" class="boxed-btn black">Check Out</a>
+							<button class="btn" style="border: 0;padding: 0%;" asp-page = "./Cart" asp-page-handler = "Update" >
+							    <a style="border: 0ch;margin:0%" class="boxed-btn">Cập nhật</a>
+							</button>
+							<button style="border: 0;padding: 0%;" asp-page = "./Cart" asp-page-handler = "CheckOut" type="submit">
+							    <a style="border: 0ch;margin:0%" class="boxed-btn black">Thanh toán</a>
+							</button>
 						</div>
 					</div>
 
