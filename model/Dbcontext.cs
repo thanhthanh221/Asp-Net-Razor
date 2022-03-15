@@ -58,6 +58,7 @@ namespace Razor.model{
         public DbSet<Product_Attribute> product_Attributes{set;get;}
         public DbSet<Attributes> attributes{set;get;}
         public DbSet<Attributes_Value> attributes_Values{set;get;}
+        public DbSet<Product_Sell_Bill> product_Sell_Bills{set; get;}
 
 
     }
