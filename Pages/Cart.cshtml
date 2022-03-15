@@ -46,13 +46,13 @@ else{
 									<th class="product-total">Total</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody>								
 								@foreach (var item in Model.GetCartItems())
 								{
 									<tr class="table-body-row">
 										<td class="product-remove">
 											<form method="post">
-												<button type="submit" style="border: 0ch;padding: 0%;" asp-page ="./Cart" asp-route-productid= "@item.product.MaSanPham" asp-page-handler="Delete">
+												<button class="btn" type="submit" style="border: 0ch;padding: 0%;" asp-page ="./Cart" asp-route-productid= "@item.product.MaSanPham" asp-page-handler="Delete">
 													<a><i class="far fa-window-close"></i></a>
 												</button>
 											</form>
@@ -98,12 +98,14 @@ else{
 							</tbody>
 						</table>
 						<div class="cart-buttons">
-							<button class="btn" style="border: 0;padding: 0%;" asp-page = "./Cart" asp-page-handler = "Update" >
-							    <a style="border: 0ch;margin:0%" class="boxed-btn">Cập nhật</a>
-							</button>
-							<button style="border: 0;padding: 0%;" asp-page = "./Cart" asp-page-handler = "CheckOut" type="submit">
-							    <a style="border: 0ch;margin:0%" class="boxed-btn black">Thanh toán</a>
-							</button>
+							<form method="post">
+								<button class="btn" style="border: 0;padding: 0%;" asp-page = "./Cart" asp-page-handler="CheckOut" >
+									<a style="border: 0ch;margin:0%" class="boxed-btn">Cập nhật</a>
+								</button>
+								<button class="btn" style="border: 0;padding: 0%;"  asp-page = "./Cart" asp-page-handler="CheckOut" type="submit">
+									<a style="border: 0ch;margin:0%"class="boxed-btn black">Thanh toán</a>
+								</button>
+							</form>
 						</div>
 					</div>
 

@@ -44,7 +44,6 @@ namespace Razor.Pages{
             }
             return hash;
         }
-        [BindProperty]
         public int Sum{get; set;}
         private readonly Razor.model.Context context;
         private readonly UserManager<AppUser> userManager;
@@ -134,13 +133,39 @@ namespace Razor.Pages{
             }
 
             List<CartItem> cart = GetCartItems(); // Chuyển SS thành item
-            HoaDon New_HoaDon = new HoaDon(){
-                Money = Sum+ 20000,
-                Id_User = user.Id
-                
-            };
-        
+            Sum = GetCartItems().Sum(p => p.product.Price* p.quantity);
 
+            // Trường hợp 1 Hàng trong kho không đủ 
+            foreach (CartItem item in cart)
+            {
+                Product product_item = context.products.Where(c => c.MaSanPham.Equals(item.product.MaSanPham)).SingleOrDefault();
+                product_item.SoLuong -= item.quantity;
+                
+            }
+            HoaDon New_HoaDon = new HoaDon(){
+                Money = Sum + 20000,
+                Id_User = user.Id,
+                ID_Shiper = 1              
+            };
+            await context.hoaDons.AddAsync(New_HoaDon);
+
+            await context.SaveChangesAsync();
+
+            foreach (var item in cart)
+            {
+                Product_Sell_Bill product_Sell_Bill = new(){
+                    Product_ID = item.product.MaSanPham,
+                    MaHoaDon = New_HoaDon.MaHoaDon,
+                    SoLuong = item.quantity,
+                };
+                await context.product_Sell_Bills.AddAsync(product_Sell_Bill);
+            }
+            user.Monney -= New_HoaDon.Money;
+            user.Monney_Use += New_HoaDon.Money;
+            user.Count_DonHang++;
+
+            await context.SaveChangesAsync();
+            ClearCart();
             return RedirectToPage("./Cart");
         }
         public IActionResult OnGet(){
