@@ -12,9 +12,9 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Identity;
 using Razor.Areas.Identity.Pages.Account;
 
-namespace Razor.Pages{
+namespace Razor.Pages.ThongTinMuaHang{
     [Authorize]
-    public class CartModel :PageModel{
+    public class ThongTinMuaHangModel :PageModel{
         public class CartItem
         {
             public int quantity {set; get;}
@@ -48,7 +48,7 @@ namespace Razor.Pages{
         private readonly Razor.model.Context context;
         private readonly UserManager<AppUser> userManager;
         private readonly SignInManager<AppUser> signInManager;
-        public CartModel(Razor.model.Context context,UserManager<AppUser> userManager,SignInManager<AppUser> signInManager ){
+        public ThongTinMuaHangModel(Razor.model.Context context,UserManager<AppUser> userManager,SignInManager<AppUser> signInManager ){
             this.context = context;
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -135,15 +135,10 @@ namespace Razor.Pages{
             List<CartItem> cart = GetCartItems(); // Chuyển SS thành item
             Sum = GetCartItems().Sum(p => p.product.Price* p.quantity);
 
-            // Trường hợp Hàng trong kho không đủ 
+            // Trường hợp 1 Hàng trong kho không đủ 
             foreach (CartItem item in cart)
             {
                 Product product_item = context.products.Where(c => c.MaSanPham.Equals(item.product.MaSanPham)).SingleOrDefault();
-                if(product_item.SoLuong - item.quantity < 0)
-                {
-                    return RedirectToPage("./Số Lượng trong kho không đủ");
-                }
-                // Nếu đủ hàng mới cho - đi
                 product_item.SoLuong -= item.quantity;
                 
             }
@@ -152,11 +147,6 @@ namespace Razor.Pages{
                 Id_User = user.Id,
                 ID_Shiper = 1              
             };
-            double Money_Af = user.Monney - New_HoaDon.Money;
-            if(Money_Af < 0)
-            {
-                return NotFound();
-            }
             await context.hoaDons.AddAsync(New_HoaDon);
 
             await context.SaveChangesAsync();
@@ -179,7 +169,11 @@ namespace Razor.Pages{
             return RedirectToPage("./ThongTinHoaDon/ThongTinMuaHang");
         }
         public IActionResult OnGet(){
-            Sum = GetCartItems().Sum(p => p.product.Price* p.quantity);
+            if(GetCartItems == null )
+            {
+                return NotFound();
+            }
+
             return Page();
         }
     }
