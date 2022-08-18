@@ -1,35 +1,37 @@
 @page
 @model CartModel
+
 <head>
 	<title>Trang mua hàng</title>
 </head>
 
-	<div class="breadcrumb-section breadcrumb-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-9 offset-lg-2 text-center">
-					<div class="hero-text">
-						<div class="hero-text-tablecell">
-							<div class="breadcrumb-text">
+<div class="breadcrumb-section breadcrumb-bg">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-9 offset-lg-2 text-center">
+				<div class="hero-text">
+					<div class="hero-text-tablecell">
+						<div class="breadcrumb-text">
 							<h1>Thanh Toán</h1>
 							<p>Fresh and Organic</p>
-					    </div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	<!-- breadcrumb-section -->
-	<!-- end breadcrumb section -->
-@if(Model.GetCartItems().Count()<= 0){
+</div>
+
+<!-- breadcrumb-section -->
+<!-- end breadcrumb section -->
+@if (Model.GetCartItems().Count() <= 0)
+{
 	<h1 style="text-align: center;" class=""> Bạn chưa đặt sản phẩm nào</h1>
-	<a asp-page= "/Shop">Quay lại trang đặt hàng</a>
+	<a asp-page="/Shop">Quay lại trang đặt hàng</a>
 
 }
-else{
-	<!-- cart -->
+else
+{
 	<div class="cart-section mt-150 mb-150">
 		<div class="container">
 			<div class="row">
@@ -46,24 +48,27 @@ else{
 									<th class="product-total">Total</th>
 								</tr>
 							</thead>
-							<tbody>								
+							<tbody>
 								@foreach (var item in Model.GetCartItems())
 								{
 									<tr class="table-body-row">
 										<td class="product-remove">
 											<form method="post">
-												<button class="btn" type="submit" style="border: 0ch;padding: 0%;" asp-page ="./Cart" asp-route-productid= "@item.product.MaSanPham" asp-page-handler="Delete">
+												<button class="btn" type="submit" style="border: 0ch;padding: 0%;"
+											asp-page="./Cart" asp-route-productid="@item.product.MaSanPham"
+											asp-page-handler="Delete">
 													<a><i class="far fa-window-close"></i></a>
 												</button>
 											</form>
 										</td>
-										<td class="product-image"><img src="~/img/products/product-img-@item.product.Name+.jpg" alt=""></td>
+										<td class="product-image"><img src="~/img/products/product-img-@item.product.Name+.jpg"
+										alt=""></td>
 										<td class="product-name">@item.product.Name</td>
 										<td class="product-price">@Model.SetUpMoney(item.product.Price)</td>
 										<td class="product-quantity"><input type="number" placeholder="@item.quantity"></td>
 										<td class="product-total">1</td>
-								    </tr>
-									
+									</tr>
+
 								}
 							</tbody>
 						</table>
@@ -89,7 +94,7 @@ else{
 									<td>20.000 VNĐ</td>
 								</tr>
 								@{
-									int Tong = Model.Sum+ 20000;
+									int Tong = Model.Sum + 20000;
 								}
 								<tr class="total-data">
 									<td><strong>Tổng: </strong></td>
@@ -99,11 +104,12 @@ else{
 						</table>
 						<div class="cart-buttons">
 							<form method="post">
-								<button class="btn" style="border: 0;padding: 0%;" asp-page = "./Cart" asp-page-handler="CheckOut" >
-									<a style="border: 0ch;margin:0%" class="boxed-btn">Cập nhật</a>
+								<button class="cart-buttons-value" asp-page="./Cart" asp-page-handler="CheckOut">
+									Cập nhật
 								</button>
-								<button class="btn" style="border: 0;padding: 0%;"  asp-page = "./Cart" asp-page-handler="CheckOut" type="submit">
-									<a style="border: 0ch;margin:0%"class="boxed-btn black">Thanh toán</a>
+								<button class="cart-buttons-value" asp-page="./Cart" asp-page-handler="CheckOut"
+								type="submit">
+									Thanh toán
 								</button>
 							</form>
 						</div>
@@ -114,7 +120,7 @@ else{
 						<div class="coupon-form-wrap">
 							<form action="index.html">
 								<p><input type="text" placeholder="Mã"></p>
-								<p><input type="submit" value="Nhập"></p>
+								<p><input id="nhap" type="submit" value="Nhập"></p>
 							</form>
 						</div>
 					</div>
@@ -124,26 +130,26 @@ else{
 	</div>
 	<!-- end cart -->
 	@section Scripts {
-        <script>
-          $(document).ready(function () {
-              $(".updatecartitem").click(function (event) {
-                  event.preventDefault();
-                  var productid = $(this).attr("data-productid");
-                  var quantity = $("#quantity-" + productid).val();
-                  $.ajax({
-                      type: "POST",
-                      url:"@Url.RouteUrl("updatecart")",
-                      data: {
-                          productid: productid,
-                          quantity:quantity
-                      },
-                      success: function (result) {
-                          window.location.href = "@Url.RouteUrl("cart")";
-                      }
-                  });
-              });
-          });
-        </script>
-      }
+<script>
+	$(document).ready(function () {
+		$(".updatecartitem").click(function (event) {
+			event.preventDefault();
+			var productid = $(this).attr("data-productid");
+			var quantity = $("#quantity-" + productid).val();
+			$.ajax({
+				type: "POST",
+				url: "@Url.RouteUrl("updatecart")",
+				data: {
+					productid: productid,
+					quantity: quantity
+				},
+				success: function (result) {
+					window.location.href = "@Url.RouteUrl("cart")";
+				}
+			});
+		});
+	});
+</script>
+}
 
 }

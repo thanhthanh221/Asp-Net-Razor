@@ -1,36 +1,32 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="~/bootstrap/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="~/css/site.css" />
-		<!-- title -->
-		<!-- favicon -->
-		<link rel="shortcut icon" type="image/png" href="~/favicon.png">
-		<!-- google font -->
-		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-		<!-- fontawesome -->
-		<link rel="stylesheet" href="~/css/all.min.css">
-		<!-- bootstrap -->
-		<link rel="stylesheet" href="~/bootstrap/dist/css/bootstrap.min.css">
-		<!-- owl carousel -->
-		<link rel="stylesheet" href="~/css/owl.carousel.css">
-		<!-- magnific popup -->
-		<link rel="stylesheet" href="~/css/magnific-popup.css">
-		<!-- animate css -->
-		<link rel="stylesheet" href="~/css/animate.css">
-		<!-- mean menu css -->
-		<link rel="stylesheet" href="~/css/meanmenu.min.css">
-		<!-- main style -->
-		<link rel="stylesheet" href="~/css/main.css">
-		<!-- responsive -->
-		<link rel="stylesheet" href="~/css/responsive.css">
 
-	</head>
-	<body>
-		<div class="search-area">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="~/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" />
+	<!-- favicon -->
+	<link rel="shortcut icon" type="image/png" href="~/favicon.png">
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="~/bootstrap/dist/css/bootstrap.min.css">
+	<!-- owl carousel -->
+	<link rel="stylesheet" href="~/css/owl.carousel.css">
+	<!-- magnific popup -->
+	<link rel="stylesheet" href="~/css/magnific-popup.css">
+	<!-- animate css -->
+	<link rel="stylesheet" href="~/css/animate.css">
+	<!-- mean menu css -->
+	<link rel="stylesheet" href="~/css/meanmenu.min.css">
+	<!-- main style -->
+	<link rel="stylesheet" href="~/css/main.css">
+	<!-- responsive -->
+	<link rel="stylesheet" href="~/css/responsive.css">
+
+</head>
+
+<body>
+	<div class="search-area">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
@@ -46,7 +42,7 @@
 			</div>
 		</div>
 	</div>
-		<div class="top-header-area" id="sticker">
+	<div class="top-header-area" id="sticker">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 col-sm-12 text-center">
@@ -61,11 +57,11 @@
 
 						<!-- menu start -->
 						<nav class="main-menu">
-							<partial name="_LoginPartial"/>	
+							<partial name="_LoginPartial" />
 							<ul>
-								<li class="current-list-item"><a asp-page= "/Index">Home</a>
+								<li class="current-list-item"><a asp-page="/Index">Home</a>
 									<ul class="sub-menu">
-										<li><a asp-page ="/Index">Static Home</a></li>
+										<li><a asp-page="/Index">Static Home</a></li>
 										<li><a href="index_2.html">Slider Home</a></li>
 									</ul>
 								</li>
@@ -79,7 +75,7 @@
 										<li><a href="shop.html">Shop</a></li>
 									</ul>
 								</li>
-								<li><a asp-page ="/News">News</a>
+								<li><a asp-page="/News">News</a>
 									<ul class="sub-menu">
 										<li><a asp-page="/News">News</a></li>
 										<li><a href="single-news.html">Create News</a></li>
@@ -88,14 +84,16 @@
 								<li><a href="contact.html">Contact</a></li>
 								<li><a asp-page="/Shop" asp-area="">Shop</a>
 									<ul class="sub-menu">
-										<li><a asp-page ="/Shop">Shop</a></li>
-										<li><a asp-page ="/Admin_Products/Index">Amin Product</a></li>
+										<li><a asp-page="/Shop">Shop</a></li>
+										<li><a asp-page="/Admin_Products/Index">Amin Product</a></li>
 									</ul>
-								</li>							
+								</li>
 								<li>
 									<div class="header-icons">
-										<a class="shopping-cart" asp-page ="/Cart"><i class="fas fa-shopping-cart"></i></a>
-										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+										<a class="shopping-cart" asp-page="/Cart"><i
+												class="fas fa-shopping-cart"></i></a>
+										<a class="mobile-hide search-bar-icon" href="#"><i
+												class="fas fa-search"></i></a>
 									</div>
 								</li>
 
@@ -109,12 +107,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="loader">
-        <div class="loader-inner">
-            <div class="circle"></div>
-        </div>
-    </div>        
-		@RenderBody()
+	@RenderBody()
 	<div class="footer-area">
 		<div class="container">
 			<div class="row">
@@ -163,14 +156,16 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 col-md-12">
-					<p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.<br>
+					<p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>, All Rights
+						Reserved.<br>
 						Distributed By - <a href="https://themewagon.com/">Themewagon</a>
 					</p>
 				</div>
 				<div class="col-lg-6 text-right col-md-12">
 					<div class="social-icons">
 						<ul>
-							<li><a href="https://www.facebook.com/thit.tho.18/" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+							<li><a href="https://www.facebook.com/thit.tho.18/" target="_blank"><i
+										class="fab fa-facebook-f"></i></a></li>
 							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
 							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
 							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
@@ -182,26 +177,27 @@
 		</div>
 	</div>
 	@await RenderSectionAsync("Scripts", required: false)
-	</body>
-	<!-- copyright -->
-	<!-- jquery -->
-	<script src="~/js/jquery-1.11.3.min.js"></script>
-	<!-- bootstrap -->
-	<script src="~/bootstrap/dist/js/bootstrap.min.js"></script>
-	<!-- count down -->
-	<script src="~/js/jquery.countdown.js"></script>
-	<!-- isotope -->
-	<script src="~/js/jquery.isotope-3.0.6.min.js"></script>
-	<!-- waypoints -->
-	<script src="~/js/waypoints.js"></script>
-	<!-- owl carousel -->
-	<script src="~/js/owl.carousel.min.js"></script>
-	<!-- magnific popup -->
-	<script src="~/js/jquery.magnific-popup.min.js"></script>
-	<!-- mean menu -->
-	<script src="~/js/jquery.meanmenu.min.js"></script>
-	<!-- sticker js -->
-	<script src="~/js/sticker.js"></script>
-	<!-- main js -->
-	<script src="~/js/main.js"></script>
+</body>
+<!-- copyright -->
+<!-- jquery -->
+<script src="~/js/jquery-1.11.3.min.js"></script>
+<!-- bootstrap -->
+<script src="~/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- count down -->
+<script src="~/js/jquery.countdown.js"></script>
+<!-- isotope -->
+<script src="~/js/jquery.isotope-3.0.6.min.js"></script>
+<!-- waypoints -->
+<script src="~/js/waypoints.js"></script>
+<!-- owl carousel -->
+<script src="~/js/owl.carousel.min.js"></script>
+<!-- magnific popup -->
+<script src="~/js/jquery.magnific-popup.min.js"></script>
+<!-- mean menu -->
+<script src="~/js/jquery.meanmenu.min.js"></script>
+<!-- sticker js -->
+<script src="~/js/sticker.js"></script>
+<!-- main js -->
+<script src="~/js/main.js"></script>
+
 </html>
