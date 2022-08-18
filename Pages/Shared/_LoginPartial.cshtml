@@ -4,36 +4,37 @@
 
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
-        <nav class="main-menu">
-            <ul>
-                @if (SignInManager.IsSignedIn(User))
-                {
-                    <li class="current-list-item">
-                        <a id="manage" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"> Xin chào <strong>@UserManager.GetUserName(User)</strong></a>
-                            <ul class="sub-menu">
-                                <li>
-                                    <a asp-page="/Admin_Products/Create">Creat Products</a>
-                                </li>
-                                <li>
-                                    <a asp-page ="/Role/Index" class="" asp-area="Admin">Role User</a>
-                                </li>
-                                <li>
-                                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                                            <button type="submit" class="nav-link btn btn-link text-dark">Đăng Xuât</button>
-                                    </form>
-                                </li>
-                            </ul>
+<nav class="main-menu">
+    <ul>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <li class="current-list-item">
+                <a id="manage" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                    Xin chào <strong>@UserManager.GetUserName(User)</strong>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a asp-page="/Admin_Products/Create">Creat Products</a>
                     </li>
-                    
-                }
-                else
-                {
-                    <li class="current-list-item">
-                        <a id="login" asp-area="Identity" asp-page="/Account/Login">Đăng Nhập</a>
+                    <li>
+                        <a asp-page="/Role/Index" class="" asp-area="Admin">Role User</a>
                     </li>
-                    
-                }
-            </ul>
-        </nav>
+                    <li>
+                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
+                        asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                            <button type="submit">Đăng Xuât</button>
+                        </form>
+                    </li>
+                </ul>
+            </li>   
 
+        }
+        else
+        {
+            <li class="current-list-item">
+                <a id="login" asp-area="Identity" asp-page="/Account/Login">Đăng Nhập</a>
+            </li>
 
+        }
+    </ul>
+</nav>

@@ -1,18 +1,18 @@
-@page 
+@page
 @model PrivacyModel
 @{
     ViewData["Title"] = "MUA BÁN SẢN PHẨM";
 }
 
-<div >
+<div>
     <p>Thông tin các sản phẩm</p>
     <div class="row">
         @foreach (var item in Model.products)
         {
             <div class="col">
-                <partial name="_ProductItem", model= "item"/>
+                <partial name="_ProductItem" , model="item" />
             </div>
-            
+
         }
     </div>
 </div>

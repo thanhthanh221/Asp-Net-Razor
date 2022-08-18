@@ -10,8 +10,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Razor.model;
 using System.IO;
 using Microsoft.AspNetCore.Server;
-namespace Razor.Pages{
-    public class News{
-        
+namespace Razor.Pages
+{
+    public class News
+    {
+
     }
 }
